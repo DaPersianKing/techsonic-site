@@ -1,40 +1,25 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
-import { products, solutionCards, industries, trustStats, whyCards, workflowSteps } from '../data/content';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
+import {
+  trustStats,
+  advisoryServices,
+  howTechsonicHelps,
+  technologyAreas,
+  aiAccelerators,
+  whyTechsonic
+} from '../data/content';
 import { Button } from '../components/ui/button';
-import { useEffect, useState } from 'react';
+import { cn } from '../lib/utils';
 
 const stagger = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 }
 };
 
-function Counter({ value }: { value: string }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const target = Number(value.replace('+', '')) || 0;
-    const duration = 900;
-    let startTime: number | null = null;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      setCount(Math.round(progress * target));
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  }, [value]);
-
-  return <span>{count}{value.includes('+') ? '+' : ''}</span>;
-}
-
 export default function HomePage() {
   return (
     <div className="relative overflow-hidden">
+      {/* Hero Section */}
       <section className="relative overflow-hidden px-6 pb-24 pt-14 sm:px-10 lg:px-16">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-gradient-to-br from-brand-primary to-accent blur-3xl" />
@@ -44,95 +29,183 @@ export default function HomePage() {
         <div className="relative mx-auto flex max-w-[1220px] flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl space-y-8">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
-              Technology Intelligence. Delivered.
+              Technology Advisory. Smarter IT Decisions.
             </span>
             <h1 className="text-5xl font-semibold leading-tight tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
-              Technology Intelligence.
-              <br /> Delivered.
+              Technology Advisory.
+              <br /> Smarter IT Decisions.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Helping organizations modernize infrastructure, reduce technology costs, strengthen cybersecurity, and accelerate digital transformation through AI-powered software
-              and strategic advisory.
+              Techsonic helps organizations evaluate, source, and optimize technology solutions across network, cloud, cybersecurity, communications, and AI. We combine independent advisory with supplier intelligence, pricing leverage, and purpose-built automation.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild>
-                <a href="/#products">Explore Products</a>
+                <a href="/contact">Schedule Advisory Consultation</a>
               </Button>
               <Button variant="secondary" asChild>
-                <a href="/contact">Schedule Consultation</a>
+                <a href="#advisory">Explore Capabilities</a>
               </Button>
             </div>
           </motion.div>
 
+          {/* Advisory Engagement Tracker Mockup */}
           <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9 }} className="relative w-full max-w-xl rounded-[2rem] border border-white/10 bg-surface-secondary/80 p-8 shadow-soft backdrop-blur-xl">
             <div className="flex items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 px-6 py-5">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Platform pulse</p>
-                <p className="mt-2 text-xl font-semibold text-white">AI decision intelligence</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Advisory Framework</p>
+                <p className="mt-2 text-xl font-semibold text-white">Engagement Milestones</p>
               </div>
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-accent">
                 <Sparkles className="h-5 w-5" />
               </span>
             </div>
-            <div className="mt-8 grid gap-5">
-              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Projected savings</p>
-                    <p className="mt-2 text-3xl font-semibold text-white">$9.6M+</p>
-                  </div>
-                  <span className="text-sm text-success">+18%</span>
+            <div className="mt-8 space-y-4">
+              {[
+                { label: 'Current State Analysis', status: 'completed' },
+                { label: 'Supplier Comparison', status: 'completed' },
+                { label: 'Pricing Validation', status: 'completed' },
+                { label: 'Risk Review', status: 'active' },
+                { label: 'Implementation Roadmap', status: 'planned' }
+              ].map((step, idx) => (
+                <div key={idx} className="flex items-center gap-4 rounded-2xl border border-white/5 bg-white/5 p-4 transition hover:bg-white/10">
+                  <span className={cn(
+                    "flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold",
+                    step.status === 'completed' && "bg-success/20 text-success border border-success/30",
+                    step.status === 'active' && "bg-accent/20 text-accent border border-accent/30 animate-pulse",
+                    step.status === 'planned' && "bg-white/5 text-slate-500 border border-white/10"
+                  )}>
+                    {step.status === 'completed' ? '✓' : idx + 1}
+                  </span>
+                  <span className={cn(
+                    "text-sm font-medium",
+                    step.status === 'completed' && "text-slate-300",
+                    step.status === 'active' && "text-white font-semibold",
+                    step.status === 'planned' && "text-slate-500"
+                  )}>
+                    {step.label}
+                  </span>
+                  {step.status === 'active' && (
+                    <span className="ml-auto text-[10px] uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded">Active</span>
+                  )}
                 </div>
-                <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-[72%] rounded-full bg-gradient-to-r from-accent to-primary" />
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                  <p className="text-sm text-slate-400">Security posture</p>
-                  <p className="mt-3 text-2xl font-semibold text-white">7 risk vectors</p>
-                </div>
-                <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                  <p className="text-sm text-slate-400">Platform adoption</p>
-                  <p className="mt-3 text-2xl font-semibold text-white">94%</p>
-                </div>
-              </div>
+              ))}
             </div>
             <div className="absolute -right-16 top-10 h-20 w-20 rounded-full bg-accent/20 blur-3xl" />
           </motion.div>
         </div>
       </section>
 
-      <section id="products" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
+      {/* Advisory Services Section */}
+      <section id="advisory" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1220px]">
           <div className="text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
-              Our products
+              Advisory Services
             </span>
-            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Technology decision intelligence.</h2>
+            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Independent Technology Advisory.</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Our AI-powered software delivers actionable intelligence for enterprise leaders, enabling smarter decisions across infrastructure, cybersecurity, cloud, and procurement.
+              We help enterprises modernize infrastructure, mitigate risks, and optimize commercial terms across network, cloud, cybersecurity, and voice agreements.
             </p>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
+            {advisoryServices.map((service) => (
               <motion.div
-                key={product.title}
+                key={service.title}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 variants={stagger}
+                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft flex flex-col h-full"
+              >
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-accent mb-6">
+                  {service.icon}
+                </span>
+                <h3 className="text-xl font-semibold text-white">{service.title}</h3>
+                <p className="mt-4 text-base leading-7 text-slate-300 flex-grow">{service.description}</p>
+                <ul className="mt-6 space-y-2 border-t border-white/10 pt-6">
+                  {service.bulletPoints.map((point) => (
+                    <li key={point} className="flex items-center gap-2 text-sm text-slate-400">
+                      <CheckCircle2 className="h-4 w-4 text-accent/75 flex-shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How Techsonic Helps Section */}
+      <section id="solutions" className="scroll-mt-offset-nav bg-surface-secondary px-6 py-24 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1220px]">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
+              How Techsonic Helps
+            </span>
+            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Our structured approach to success.</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              We guide enterprise teams through the entire lifecycle of evaluation, sourcing, and contract leverage.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {howTechsonicHelps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.05 * index }}
+                variants={stagger}
                 className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400">
-                  {product.badge}
+                <div className="flex items-center gap-4">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-accent">
+                    {step.icon}
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Step 0{index + 1}</span>
+                </div>
+                <h3 className="mt-6 text-lg font-semibold text-white">{step.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Areas Section */}
+      <section id="tech-areas" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1220px]">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
+              Technology Areas
+            </span>
+            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Ecosystem sourcing categories.</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              We source, audit, and negotiate agreements across all critical elements of modern enterprise technology portfolios.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {technologyAreas.map((area) => (
+              <motion.div
+                key={area.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                variants={stagger}
+                className="flex items-start gap-5 rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft h-full"
+              >
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-accent flex-shrink-0">
+                  {area.icon}
                 </span>
-                <h3 className="mt-6 text-xl font-semibold text-white">{product.title}</h3>
-                <p className="mt-4 text-base leading-7 text-slate-300">{product.description}</p>
-                <div className="mt-6 inline-flex items-center gap-2 text-accent transition hover:text-white">
-                  {product.icon} <ArrowRight className="h-4 w-4" />
+                <div>
+                  <h3 className="text-lg font-semibold text-white">{area.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{area.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -140,86 +213,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="solutions" className="scroll-mt-offset-nav bg-surface-secondary px-6 py-24 sm:px-10 lg:px-16">
+      {/* AI Tools Section */}
+      <section id="ai-tools" className="scroll-mt-offset-nav bg-surface-secondary px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1220px]">
           <div className="text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
-              Solutions
+              AI Tools & Automation
             </span>
-            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Unlock your full potential.</h2>
+            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Accelerating decision intelligence.</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Our strategic solutions empower your organization to overcome complex technology challenges and achieve measurable business outcomes.
-            </p>
-          </div>
-
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {solutionCards.map((solution) => (
-              <motion.div
-                key={solution.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                variants={stagger}
-                className="flex flex-col items-center justify-center space-y-4 rounded-[2rem] border border-white/10 bg-surface p-8 text-center shadow-soft"
-              >
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-accent">
-                  {solution.icon}
-                </span>
-                <h3 className="text-lg font-semibold text-white">{solution.title}</h3>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="industries" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-[1220px]">
-          <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
-              Industries
-            </span>
-            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">Delivering value across sectors.</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Techsonic’s AI-powered intelligence and strategic advisory services drive innovation and efficiency across diverse enterprise industries.
+              Techsonic also builds AI-powered tools that accelerate analysis, qualification, proposal workflows, and technology decision-making.
             </p>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.map((industry) => (
+            {aiAccelerators.map((tool) => (
               <motion.div
-                key={industry.title}
+                key={tool.title}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 variants={stagger}
-                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft"
+                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft h-full"
               >
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-accent">
-                  {industry.icon}
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400 mb-6">
+                  {tool.badge}
                 </span>
-                <h3 className="mt-6 text-xl font-semibold text-white">{industry.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{tool.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-slate-400">{tool.description}</p>
+                <div className="mt-6 inline-flex items-center gap-2 text-accent text-sm font-semibold">
+                  {tool.icon}
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="why-techsonic" className="scroll-mt-offset-nav bg-surface-secondary px-6 py-24 sm:px-10 lg:px-16">
+      {/* Why Techsonic Section */}
+      <section id="why-techsonic" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1220px]">
           <div className="text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
               Why Techsonic
             </span>
-            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">The Techsonic advantage.</h2>
+            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">The advisory advantage.</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              We combine cutting-edge AI with deep industry expertise to deliver unparalleled value and results.
+              We combine market intelligence with deep technical expertise to deliver unbiased alignment and maximum contract leverage.
             </p>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {whyCards.map((card) => (
+            {whyTechsonic.map((card) => (
               <motion.div
                 key={card.title}
                 initial="hidden"
@@ -227,62 +273,29 @@ export default function HomePage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 variants={stagger}
-                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft"
+                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft h-full"
               >
                 <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-accent">
                   {card.icon}
                 </span>
                 <h3 className="mt-6 text-xl font-semibold text-white">{card.title}</h3>
-                <p className="mt-4 text-base leading-7 text-slate-300">{card.description}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-400">{card.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="workflow" className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-[1220px]">
-          <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.26em] text-accent shadow-soft">
-              Our workflow
-            </span>
-            <h2 className="mt-6 text-4xl font-semibold text-white sm:text-5xl">A structured approach to success.</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Our proven methodology ensures seamless execution and exceptional outcomes for every engagement.
-            </p>
-          </div>
-
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {workflowSteps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                variants={stagger}
-                className="rounded-[2rem] border border-white/10 bg-surface p-8 shadow-soft"
-              >
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-accent">
-                  {step.icon}
-                </span>
-                <h3 className="mt-6 text-xl font-semibold text-white">{step.title}</h3>
-                <p className="mt-4 text-base leading-7 text-slate-300">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* CTA Ready Section */}
       <section className="scroll-mt-offset-nav bg-gradient-to-br from-brand-primary to-accent px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1220px] text-center">
-          <h2 className="text-4xl font-semibold text-white sm:text-5xl">Ready to transform your technology?</h2>
+          <h2 className="text-4xl font-semibold text-white sm:text-5xl">Ready to optimize your technology?</h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-brand-subtext sm:text-xl">
-            Connect with Techsonic today for a tailored consultation and discover how AI-powered intelligence can drive your enterprise forward.
+            Connect with our technology advisory team today for a comprehensive evaluation of your contracts, pricing, and infrastructure.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button asChild>
-              <a href="/contact">Schedule Consultation</a>
+              <a href="/contact">Schedule Advisory Consultation</a>
             </Button>
             <Button variant="secondary" asChild>
               <a href="https://www.linkedin.com/company/gotechsonic">Learn More</a>
@@ -291,50 +304,54 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* About Section */}
       <section id="about" className="scroll-mt-offset-nav bg-surface-secondary px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto grid max-w-[1220px] gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
             <div className="rounded-[2rem] border border-white/10 bg-surface p-10 shadow-soft">
               <p className="text-sm uppercase tracking-[0.3em] text-accent">About Techsonic</p>
-              <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Your trusted technology intelligence partner.</h2>
+              <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Independent advisors, client-aligned recommendations.</h2>
               <p className="mt-5 text-lg leading-8 text-slate-300">
-                Techsonic is a leading provider of AI-powered technology intelligence and strategic advisory services. We empower enterprises to navigate complex technology landscapes, optimize IT investments, and accelerate digital transformation.
+                Techsonic LLC is an independent technology advisory firm. We help enterprise IT leaders, security executives, and finance directors design, evaluate, and source infrastructure, network connectivity, cloud, cybersecurity, and voice agreements with maximum commercial leverage.
               </p>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-surface p-10 shadow-soft">
               <p className="text-sm uppercase tracking-[0.3em] text-accent">Our Mission</p>
               <p className="mt-4 text-lg leading-8 text-slate-300">
-                To deliver unparalleled clarity and competitive advantage through AI-driven insights, enabling our clients to make informed technology decisions that drive growth and innovation.
+                To deliver complete clarity and commercial advantage through unbiased, market-aligned advisory and pricing validation tools, enabling organizations to make smarter IT decisions that improve performance and reduce cost.
               </p>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-surface p-10 shadow-soft">
-            <p className="text-sm uppercase tracking-[0.3em] text-accent">Our Values</p>
-            <ul className="mt-8 space-y-5 text-lg text-slate-300">
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-accent" /> Innovation: Continuously pushing the boundaries of technology.
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-accent" /> Integrity: Operating with transparency and honesty.
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-accent" /> Excellence: Delivering superior quality and results.
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-accent" /> Collaboration: Fostering strong partnerships with clients.
-              </li>
-            </ul>
+          <div className="rounded-[2rem] border border-white/10 bg-surface p-10 shadow-soft flex flex-col justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-accent">Core Values</p>
+              <ul className="mt-8 space-y-5 text-lg text-slate-300">
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-accent" /> Independence: Always operator-neutral, aligning 100% with client goals.
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-accent" /> Accountability: Rooted in data-backed optimization and SLA diligence.
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-accent" /> Excellence: Setting high standards for contract auditing and commercial scoring.
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-accent" /> Collaboration: Working as a seamless extension of corporate IT and sourcing teams.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Trust Stats Section */}
       <section className="scroll-mt-offset-nav px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1220px] text-center">
-          <h2 className="text-4xl font-semibold text-white sm:text-5xl">Our impact by the numbers.</h2>
+          <h2 className="text-4xl font-semibold text-white sm:text-5xl">Objective intelligence. Business-first advice.</h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-            Trusted by industry leaders to deliver tangible results and measurable value.
+            Our advisory frameworks and provider networks align with the highest industry standards to maximize enterprise value.
           </p>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -352,8 +369,8 @@ export default function HomePage() {
                   {stat.icon}
                 </span>
                 <p className="mt-6 text-sm uppercase tracking-[0.2em] text-slate-400">{stat.label}</p>
-                <p className="mt-2 text-3xl font-semibold text-white">
-                  {stat.value.includes('+') ? <Counter value={stat.value} /> : stat.value}
+                <p className="mt-2 text-2xl font-semibold text-white">
+                  {stat.value}
                 </p>
               </motion.div>
             ))}

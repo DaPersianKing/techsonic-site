@@ -10,9 +10,10 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 const navItems = [
-  { label: 'Products', href: '#products' },
+  { label: 'Advisory', href: '#advisory' },
   { label: 'Solutions', href: '#solutions' },
-  { label: 'Industries', href: '#industries' },
+  { label: 'Technology Areas', href: '#tech-areas' },
+  { label: 'AI Tools', href: '#ai-tools' },
   { label: 'About', href: '#about' }
 ];
 
@@ -35,8 +36,8 @@ function App() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-2xl shadow-soft">
         <div className="mx-auto flex max-w-[1220px] items-center justify-between px-6 py-4 lg:px-10">
           <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-white">
-            <Logo variant="white" size="lg" />
-            <span className="hidden sm:inline">Techsonic</span>
+            <Logo variant="icon" size="md" className="h-10 w-auto" />
+            <span className="text-xl font-bold tracking-tight text-white">Techsonic</span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -54,7 +55,7 @@ function App() {
               to="/contact"
               className="rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
             >
-              Schedule Consultation
+              Schedule Advisory Consultation
             </NavLink>
           </nav>
 
@@ -99,7 +100,7 @@ function App() {
                 className="mt-2 block rounded-full border border-white/10 bg-white/10 px-5 py-2 text-center text-base font-semibold text-white transition hover:bg-white/15"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Schedule Consultation
+                Schedule Advisory Consultation
               </NavLink>
             </div>
           </motion.nav>
@@ -121,24 +122,24 @@ function App() {
             <div>
               <p className="text-sm font-semibold text-white">Techsonic</p>
               <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400">
-                AI-powered intelligence for enterprise technology leaders, strategy teams, and procurement organizations.
+                Techsonic helps organizations evaluate, source, and optimize technology solutions. We combine independent advisory with supplier intelligence and purpose-built automation.
               </p>
             </div>
           </div>
           <div className="grid gap-3 text-sm sm:text-right">
             <a
-              href="/#products"
+              href="/#advisory"
               onClick={(e) => {
                 e.preventDefault();
                 if (location.pathname !== '/') {
-                  window.location.href = '/#products';
+                  window.location.href = '/#advisory';
                 } else {
-                  scrollToHash('#products');
+                  scrollToHash('#advisory');
                 }
               }}
               className="transition hover:text-white"
             >
-              Products
+              Advisory
             </a>
             <a href="/contact" className="transition hover:text-white">
               Contact

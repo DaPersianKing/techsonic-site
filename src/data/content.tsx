@@ -8,141 +8,240 @@ import {
   Zap,
   Layers,
   CheckCircle2,
-  CalendarDays,
   Cloud,
   Shield,
-  ShoppingCart,
-  GraduationCap,
-  HeartHandshake,
+  Users,
   Building2,
   Banknote,
-  Factory,
-  Store,
-  Sparkles,
-  Users,
-  Rocket,
-  Terminal
+  Search,
+  AlertCircle,
+  FileText
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 
-export type ProductCard = {
+export type InfoCard = {
   title: string;
   description: string;
   icon: ReactNode;
-  badge: string;
+};
+
+export type ServiceCard = {
+  title: string;
+  description: string;
+  icon: ReactNode;
+  bulletPoints: string[];
 };
 
 export const trustStats = [
-  { label: 'Years Experience', value: '16+', icon: <Activity className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'Technology Suppliers', value: '250+', icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'AI-Powered Platform', value: 'Decision Intelligence', icon: <Cpu className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'Enterprise Expertise', value: 'Infrastructure & Security', icon: <ShieldCheck className="h-6 w-6 text-accent" aria-hidden /> }
+  { label: 'Ecosystem Sourced', value: '250+ Suppliers', icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden /> },
+  { label: 'Advisory Posture', value: '100% Unbiased', icon: <ShieldCheck className="h-6 w-6 text-accent" aria-hidden /> },
+  { label: 'Strategic Approach', value: 'Business First', icon: <Briefcase className="h-6 w-6 text-accent" aria-hidden /> },
+  { label: 'Platform Core', value: 'AI Sourcing Intel', icon: <Cpu className="h-6 w-6 text-accent" aria-hidden /> }
 ];
 
-export const products: ProductCard[] = [
+export const advisoryServices: ServiceCard[] = [
   {
-    title: 'StrategyIQ',
-    description: 'AI-powered competitive deal strategy platform for enterprise procurement and sourcing teams.',
-    icon: <BarChart3 className="h-6 w-6 text-accent" aria-hidden />,
-    badge: 'Core Platform'
+    title: 'Network & Connectivity Advisory',
+    description: 'Design and source resilient, high-bandwidth enterprise connectivity solutions.',
+    icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Dedicated Internet Access (DIA)',
+      'Enterprise Broadband & Ethernet',
+      'SD-WAN Architecture Design',
+      'Carrier Diversification Strategy'
+    ]
   },
   {
+    title: 'Cloud & Infrastructure Advisory',
+    description: 'Navigate cloud migration, hybrid architectures, and data center consolidation.',
+    icon: <Cloud className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Public, Private & Hybrid Cloud Sourcing',
+      'Colocation & Data Center Selection',
+      'Disaster Recovery & Backup Planning',
+      'Infrastructure Lifecycle Services'
+    ]
+  },
+  {
+    title: 'Cybersecurity Advisory',
+    description: 'Evaluate security posture, audit risk vectors, and select top-tier security providers.',
+    icon: <Shield className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Identity & Access Management (IAM)',
+      'Threat Prevention & SASE Solutions',
+      'Compliance & Governance Frameworks',
+      'MSSP Sourcing & Integration'
+    ]
+  },
+  {
+    title: 'UCaaS & CCaaS Advisory',
+    description: 'Modernize communications infrastructure and customer experience solutions.',
+    icon: <Users className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Unified Communications (UCaaS) Sourcing',
+      'Contact Center (CCaaS) Evaluation',
+      'Omnichannel Integration Support',
+      'Provider Comparison Matrices'
+    ]
+  },
+  {
+    title: 'Technology Expense Optimization',
+    description: 'Conduct audits, eliminate waste, and optimize recurring technology contracts.',
+    icon: <Banknote className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Telecom & Cloud Bill Reconciliation',
+      'Contract Waste Elimination',
+      'Benchmarking against Peer Contracts',
+      'Continuous Spend Visibility'
+    ]
+  },
+  {
+    title: 'Supplier & Contract Strategy',
+    description: 'Ensure commercial alignment, optimal SLAs, and pricing leverage across agreements.',
+    icon: <Briefcase className="h-6 w-6 text-accent" aria-hidden />,
+    bulletPoints: [
+      'Vendor Ecosystem Evaluation',
+      'Commercial SLA Negotiations',
+      'Pricing Leverage Optimizations',
+      'Direct Bid Management & Scoring'
+    ]
+  }
+];
+
+export const howTechsonicHelps: InfoCard[] = [
+  {
+    title: 'Assess Current Environment',
+    description: 'We audit your active services, configurations, contracts, and spend to establish an accurate technology baseline.',
+    icon: <Search className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Identify Gaps & Risks',
+    description: 'Our advisory framework identifies performance gaps, single points of failure, compliance issues, and billing errors.',
+    icon: <AlertCircle className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Compare Supplier Options',
+    description: 'We generate objective comparison matrices evaluating engineering capability, coverage, financial stability, and SLAs.',
+    icon: <Layers className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Create Pricing Leverage',
+    description: 'Using current market intelligence and purchasing volume, we secure tier-1 supplier pricing and favorable commercial terms.',
+    icon: <Zap className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Support Selection & Implementation',
+    description: 'We provide technical project coordination to manage transitions, coordinate suppliers, and ensure smooth delivery.',
+    icon: <CheckCircle2 className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Optimize Post-Deployment',
+    description: 'We review invoices for compliance, audit service delivery, and continuously identify optimization opportunities.',
+    icon: <Activity className="h-5 w-5 text-accent" aria-hidden />
+  }
+];
+
+export const technologyAreas: InfoCard[] = [
+  {
+    title: 'Connectivity & SD-WAN',
+    description: 'DIA, broadband, Ethernet, and managed SD-WAN architectures.',
+    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Cloud Infrastructure',
+    description: 'Public cloud, private cloud hosting, colocation, and hybrid solutions.',
+    icon: <Cloud className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Cybersecurity & Identity',
+    description: 'Threat detection, Zero Trust Network Access (ZTNA), IAM, and MSSP.',
+    icon: <Shield className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Enterprise UCaaS & CCaaS',
+    description: 'Unified phone, video conferencing, collaboration, and intelligent contact centers.',
+    icon: <Users className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'AI & Sourcing Automation',
+    description: 'AI-assisted sourcing strategies, automated qualification, and decision tools.',
+    icon: <Cpu className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Lifecycle & Data Center Services',
+    description: 'Equipment procurement, migration support, data center audits, and hybrid lifecycle solutions.',
+    icon: <Building2 className="h-5 w-5 text-accent" aria-hidden />
+  }
+];
+
+export const aiAccelerators = [
+  {
     title: 'Telecom Invoice Analyzer',
-    description: 'Analyze telecom invoices, identify savings, and reduce recurring spend with intelligent reconciliation.',
-    icon: <ShieldCheck className="h-6 w-6 text-accent" aria-hidden />,
-    badge: 'Visibility'
+    description: 'Audit monthly telecom invoices, identify billing anomalies, and uncover billing contract violations.',
+    icon: <FileText className="h-5 w-5 text-accent" aria-hidden />,
+    badge: 'Expense Intel'
   },
   {
     title: 'Network Qualifier Pro',
-    description: 'Validate service availability and compare provider options across enterprise sites with precision.',
-    icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden />,
+    description: 'Instantly check provider presence, fiber availability, and service availability at enterprise locations.',
+    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />,
     badge: 'Connectivity'
   },
   {
+    title: 'StrategyIQ',
+    description: 'Calculate deal leverage, benchmark supplier pricing, and scoring profiles for enterprise negotiations.',
+    icon: <BarChart3 className="h-5 w-5 text-accent" aria-hidden />,
+    badge: 'Deal Strategy'
+  },
+  {
     title: 'RFP Response Pro',
-    description: 'Accelerate proposal creation using AI, templates, and competitive supplier scoring models.',
-    icon: <Layers className="h-6 w-6 text-accent" aria-hidden />,
-    badge: 'Automation'
+    description: 'Accelerate technology request-for-proposal comparisons using automated supplier response scoring models.',
+    icon: <Layers className="h-5 w-5 text-accent" aria-hidden />,
+    badge: 'Sourcing'
   },
   {
     title: 'Compliance Tracker',
-    description: 'Track security and compliance initiatives, evidence, and remediation across technology programs.',
-    icon: <ShieldCheck className="h-6 w-6 text-accent" aria-hidden />,
+    description: 'Map required security controls, audit active evidence, and track compliance status across supplier portfolios.',
+    icon: <ShieldCheck className="h-5 w-5 text-accent" aria-hidden />,
     badge: 'Governance'
   },
   {
     title: 'Meeting Wingman',
-    description: 'Capture action items, summarize customer meetings, and turn discovery into execution-ready tasks.',
-    icon: <Users className="h-6 w-6 text-accent" aria-hidden />,
-    badge: 'Insights'
-  },
-  {
-    title: 'Public Company Opportunity Tracker',
-    description: 'Identify enterprise sales opportunities and monitor service provider announcements for deal intelligence.',
-    icon: <Rocket className="h-6 w-6 text-accent" aria-hidden />,
-    badge: 'Pipeline'
+    description: 'Capture critical decision parameters, summarize supplier offerings, and generate structured next steps.',
+    icon: <Users className="h-5 w-5 text-accent" aria-hidden />,
+    badge: 'Discovery'
   }
 ];
 
-export const solutionCards = [
-  { title: 'Reduce IT Spend', icon: <Banknote className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Cybersecurity', icon: <Shield className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Network Modernization', icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Cloud Transformation', icon: <Cloud className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Unified Communications', icon: <Users className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Contact Center', icon: <ShoppingCart className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'AI Enablement', icon: <Zap className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Technology Procurement', icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden /> }
-];
-
-export const industries = [
-  { title: 'Education', icon: <GraduationCap className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Healthcare', icon: <HeartHandshake className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Financial Services', icon: <Banknote className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Manufacturing', icon: <Factory className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Retail', icon: <Store className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Government', icon: <Building2 className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Professional Services', icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden /> },
-  { title: 'Hospitality', icon: <Sparkles className="h-5 w-5 text-accent" aria-hidden /> }
-];
-
-export const whyCards = [
+export const whyTechsonic: InfoCard[] = [
   {
-    title: 'AI-Powered Insights',
-    description: 'Leverage artificial intelligence to uncover hidden opportunities and risks in your technology landscape.',
-    icon: <Sparkles className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Independent Technology Advisor',
+    description: 'Our recommendations are aligned entirely with your requirements. We operate independently of specific vendors.',
+    icon: <Shield className="h-5 w-5 text-accent" aria-hidden />
   },
   {
-    title: 'Strategic Advisory',
-    description: 'Receive unbiased, expert guidance from seasoned technology leaders to inform your critical decisions.',
-    icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Broad Supplier Ecosystem',
+    description: 'Access 250+ top-tier and emerging global providers across network, cloud, cybersecurity, and voice.',
+    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />
   },
   {
-    title: 'Vendor-Neutral Sourcing',
-    description: 'Optimize your technology procurement with transparent, competitive, and fair negotiations.',
-    icon: <ShoppingCart className="h-5 w-5 text-accent" aria-hidden />
-  }
-];
-
-export const workflowSteps = [
-  {
-    title: 'Assess',
-    description: 'Understand your current technology state and identify pain points.',
-    icon: <CalendarDays className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Commercial Pricing & SLA Leverage',
+    description: 'We leverage current contract databases and purchasing volume to secure preferred pricing and SLA terms.',
+    icon: <Banknote className="h-5 w-5 text-accent" aria-hidden />
   },
   {
-    title: 'Strategize',
-    description: 'Develop a tailored roadmap to achieve your technology and business objectives.',
-    icon: <Layers className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Execute',
-    description: 'Implement solutions with precision, minimizing disruption and maximizing impact.',
+    title: 'Practical Implementation Support',
+    description: 'We coordinate transition timelines, escalate issues, and support your teams from contract to deployment.',
     icon: <CheckCircle2 className="h-5 w-5 text-accent" aria-hidden />
   },
   {
-    title: 'Optimize',
-    description: 'Continuously monitor, refine, and evolve your technology stack for sustained performance.',
-    icon: <Terminal className="h-5 w-5 text-accent" aria-hidden />
+    title: 'AI-Enhanced Sourcing Analysis',
+    description: 'Use our suite of decision automation tools to analyze cost data, compare provider capabilities, and check fiber locations.',
+    icon: <Cpu className="h-5 w-5 text-accent" aria-hidden />
+  },
+  {
+    title: 'Business-First Recommendations',
+    description: 'We ground technical designs in commercial viability, aligning your architecture with optimization goals.',
+    icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden />
   }
 ];

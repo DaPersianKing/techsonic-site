@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: theme('colors.background');
+  color: theme('colors.text');
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: theme('colors.background');
+  color: theme('colors.text');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a,input,textarea,select {
+  font: inherit;
+}
+
+::selection {
+  background: theme('colors.accent');
+  color: theme('colors.background');
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-[28px] shadow-soft;
+  }
+}

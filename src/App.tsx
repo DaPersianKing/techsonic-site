@@ -118,7 +118,7 @@ function App() {
       <footer className="border-t border-white/10 bg-background/70 px-6 py-10 text-slate-400 backdrop-blur-xl sm:px-10">
         <div className="mx-auto flex max-w-[1220px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <Logo variant="white" size="sm" />
+            <Logo variant="dark" size="sm" />
             <div>
               <p className="text-sm font-semibold text-white">Techsonic</p>
               <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400">
@@ -147,7 +147,7 @@ function App() {
             <a href="https://www.linkedin.com/company/gotechsonic" className="transition hover:text-white">
               LinkedIn
             </a>
-            <span className="text-slate-500">© {new Date().getFullYear()} Techsonic</span>
+            <span className="text-slate-500">© 2026 Techsonic LLC</span>
           </div>
         </div>
       </footer>

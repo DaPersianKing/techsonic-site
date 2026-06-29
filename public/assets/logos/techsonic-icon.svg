@@ -1,10 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="techsonicIconTitle">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" role="img" aria-labelledby="techsonicIconTitle">
   <title id="techsonicIconTitle">Techsonic icon mark</title>
-  <circle cx="60" cy="60" r="56" fill="#2563EB" />
-  <path d="M18 60C18 35.107 35.107 18 60 18C84.893 18 102 35.107 102 60H18Z" fill="#ffffff" opacity="0.16" />
-  <g fill="#ffffff" opacity="0.9">
-    <rect x="20" y="48" width="80" height="8" rx="4" />
-    <rect x="20" y="60" width="80" height="8" rx="4" />
-    <rect x="20" y="72" width="80" height="8" rx="4" />
+  <g transform="translate(0, 36)">
+    <path d="M72 0C111.196 0 144 32.8043 144 72H0C0 32.8043 32.8043 0 72 0Z" fill="#2563EB" />
+    <mask id="stripeMaskIcon" fill="white">
+      <path d="M72 0C111.196 0 144 32.8043 144 72H0C0 32.8043 32.8043 0 72 0Z" />
+    </mask>
+    <g mask="url(#stripeMaskIcon)" fill="#FFFFFF" opacity="0.18">
+      <rect x="0" y="10" width="144" height="10" />
+      <rect x="0" y="26" width="144" height="10" />
+      <rect x="0" y="42" width="144" height="10" />
+      <rect x="0" y="58" width="144" height="10" />
+    </g>
   </g>
 </svg>

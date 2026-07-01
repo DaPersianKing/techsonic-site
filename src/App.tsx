@@ -35,9 +35,8 @@ function App() {
     <div className="min-h-screen bg-background text-white selection:bg-accent selection:text-background">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-2xl shadow-soft">
         <div className="mx-auto flex max-w-[1220px] items-center justify-between px-6 py-4 lg:px-10">
-          <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-white">
-            <Logo variant="icon" size="md" className="h-10 w-auto" />
-            <span className="text-xl font-bold tracking-tight text-white">Techsonic</span>
+          <Link to="/" className="flex items-center" aria-label="Techsonic home">
+            <Logo variant="dark" size="lg" className="h-12 w-auto" />
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -117,11 +116,10 @@ function App() {
 
       <footer className="border-t border-white/10 bg-background/70 px-6 py-10 text-slate-400 backdrop-blur-xl sm:px-10">
         <div className="mx-auto flex max-w-[1220px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <Logo variant="dark" size="sm" />
+          <div className="flex items-center gap-5">
+            <Logo variant="dark" size="xl" className="h-16 shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-white">Techsonic</p>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400">
+              <p className="max-w-xl text-sm leading-6 text-slate-400">
                 Techsonic helps organizations evaluate, source, and optimize technology solutions. We combine independent advisory with supplier intelligence and purpose-built automation.
               </p>
             </div>

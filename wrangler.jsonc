@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "techsonic-site",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "kv_namespaces": [{ "binding": "INTELLIGENCE" }],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/api/*"],
+  },
+  "triggers": { "crons": ["0 14 * * MON"] },
+  "ratelimits": [
+    { "name": "CONTACT_LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } },
+  ],
+  "vars": { "SITE_ORIGIN": "https://www.gotechsonic.com" },
+  // Before deployment, attach the INTELLIGENCE KV namespace and set email/spam secrets.
+  // See docs/DEPLOYMENT.md. No DNS, mail records, routes or custom domains are changed here.
+}

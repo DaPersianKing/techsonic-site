@@ -1,254 +1,143 @@
-import {
-  BarChart3,
-  ShieldCheck,
-  Cpu,
-  Globe2,
-  Briefcase,
-  Layers,
-  CheckCircle2,
-  Cloud,
-  Shield,
-  Users,
-  Building2,
-  Banknote,
-  FileText,
-  DollarSign
-} from 'lucide-react';
-import type { ReactNode } from 'react';
-
-export type InfoCard = {
-  title: string;
-  description: string;
-  icon: ReactNode;
-};
-
-export type ServiceCard = {
-  title: string;
-  description: string;
-  icon: ReactNode;
-  bulletPoints: string[];
-};
-
-export const trustStats = [
-  { label: 'Ecosystem Sourced', value: '250+ Suppliers', icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'Advisory Posture', value: '100% Unbiased', icon: <ShieldCheck className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'Strategic Approach', value: 'Business First', icon: <Briefcase className="h-6 w-6 text-accent" aria-hidden /> },
-  { label: 'Platform Core', value: 'AI Sourcing Intel', icon: <Cpu className="h-6 w-6 text-accent" aria-hidden /> }
+export const positioning =
+  'Techsonic is a technology advisory and solutions firm helping enterprises evaluate, source, negotiate, implement, and optimize technology across networking, cloud, cybersecurity, communications, SaaS, and AI.';
+export const processSteps = [
+  {
+    name: 'Assess',
+    purpose: 'Start with the business requirement, then examine the environment.',
+    deliverable: 'Requirements brief · service inventory · constraints register',
+    value: 'A shared definition of what the investment needs to achieve.',
+  },
+  {
+    name: 'Compare',
+    purpose: 'Qualify technical fit and make supplier proposals comparable.',
+    deliverable: 'Carrier qualification matrix · SLA evaluation · three-year TCO',
+    value: 'A defensible shortlist, with tradeoffs visible before selection.',
+  },
+  {
+    name: 'Negotiate',
+    purpose: 'Align commercial terms with operational needs.',
+    deliverable: 'Commercial term review · renewal analysis · negotiation priorities',
+    value: 'Clarity on cost, flexibility, accountability, and exit conditions.',
+  },
+  {
+    name: 'Implement',
+    purpose: 'Turn the selected solution into a coordinated delivery plan.',
+    deliverable: 'Architecture diagram · migration roadmap · acceptance criteria',
+    value: 'Clear ownership, dependencies, and a controlled transition.',
+  },
+  {
+    name: 'Optimize',
+    purpose: 'Keep services and agreements aligned as the business changes.',
+    deliverable: 'Invoice reconciliation · service review · lifecycle roadmap',
+    value: 'Ongoing visibility into spend, performance, and renewal decisions.',
+  },
 ];
-
-export const advisoryServices: ServiceCard[] = [
+export const advisoryServices = [
   {
-    title: 'Network & Connectivity Advisory',
-    description: 'Design and source resilient, high-bandwidth connectivity solutions for enterprise environments.',
-    icon: <Globe2 className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'Dedicated Internet Access (DIA)',
-      'Broadband & Private Ethernet',
-      'SD-WAN Architecture Design',
-      'Carrier Diversification Strategy'
-    ]
+    title: 'Network & connectivity',
+    scope: 'DIA, broadband, Ethernet, MPLS modernization, SD-WAN, SASE, and network resilience.',
+    output:
+      'Site availability analysis, carrier qualification matrices, pathway review, and network architecture diagrams.',
   },
   {
-    title: 'Cloud & Infrastructure Advisory',
-    description: 'Navigate public, private, and hybrid cloud migrations, colocation sourcing, and data center services.',
-    icon: <Cloud className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'Hybrid Cloud Migrations',
-      'Colocation Sourcing & Audits',
-      'Disaster Recovery Planning',
-      'Lifecycle Management Services'
-    ]
+    title: 'Cloud & infrastructure',
+    scope:
+      'Cloud infrastructure, hybrid connectivity, managed services, recovery, and technology lifecycle management.',
+    output:
+      'Workload requirements, cloud network topology, supplier criteria, and implementation roadmaps.',
   },
   {
-    title: 'Cybersecurity Advisory',
-    description: 'Audit risk postures, evaluate threats, and source robust cybersecurity and identity platforms.',
-    icon: <Shield className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'Identity & Access Sourcing (IAM)',
-      'Threat Prevention & ZTNA',
-      'MSSP Audits & Sourcing',
-      'Compliance Framework Mapping'
-    ]
+    title: 'Cybersecurity & identity',
+    scope:
+      'Access security, identity, endpoint protection, zero trust, and managed detection and response.',
+    output:
+      'Control requirements, supplier evaluation, deployment dependencies, and responsibility mapping.',
   },
   {
-    title: 'UCaaS & CCaaS Advisory',
-    description: 'Modernize communications infrastructure and customer experience solutions through detailed provider scoring.',
-    icon: <Users className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'UCaaS Sourcing & Evaluation',
-      'CCaaS Vendor Comparison',
-      'Omnichannel Slicing Support',
-      'Communications Cost Control'
-    ]
+    title: 'Communications & SaaS',
+    scope: 'UCaaS, CCaaS, collaboration, SaaS evaluation, and AI solutions.',
+    output:
+      'Use-case mapping, integration assessment, licensing comparison, and acceptance criteria.',
   },
   {
-    title: 'Technology Expense Optimization',
-    description: 'Audit active services, reconcile telecom invoices, eliminate waste, and optimize recurring costs.',
-    icon: <Banknote className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'Invoice Auditing & Cost Control',
-      'Contract Waste Elimination',
-      'Peer Agreement Benchmarking',
-      'Monthly Expense Visibility'
-    ]
+    title: 'Strategic sourcing',
+    scope:
+      'Supplier selection, RFP development, technology procurement, and competitive evaluation.',
+    output:
+      'Weighted selection criteria, comparable bids, SLA evaluations, and a documented recommendation.',
   },
   {
-    title: 'Supplier & Contract Strategy',
-    description: 'Ensure commercial alignment, optimal SLAs, and pricing leverage across all supplier agreements.',
-    icon: <Briefcase className="h-6 w-6 text-accent" aria-hidden />,
-    bulletPoints: [
-      'Ecosystem Evaluation Matrices',
-      'Commercial SLA Negotiations',
-      'Pricing Leverage Strategy',
-      'Bid Management & Scoring'
-    ]
-  }
+    title: 'Commercial optimization',
+    scope:
+      'Technology expense optimization, contract negotiation, renewal planning, and lifecycle review.',
+    output:
+      'Cost comparisons, three-year total cost analysis, term validation, and migration planning.',
+  },
 ];
-
-export const technologySolutions: InfoCard[] = [
+// No verified customer outcomes were supplied. These are illustrative engagement profiles.
+export const engagements = [
   {
-    title: 'Reduce IT Spend',
-    description: 'Audit active cloud, network, and telecom accounts to find billing errors, eliminate waste, and optimize commercial terms.',
-    icon: <DollarSign className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Global Network Transformation',
+    context: 'Enterprise manufacturing · multi-location network',
+    challenge: 'MPLS constraints and inconsistent connectivity requirements across sites.',
+    approach:
+      'Evaluate DIA and SD-WAN, physical carrier diversity, cloud connectivity, and failover acceptance criteria.',
+    commercial:
+      'Normalize site bids and compare transition cost, recurring charges, and renewal terms.',
+    outcome: 'Target: a resilient architecture and a comparable sourcing decision.',
   },
   {
-    title: 'Cybersecurity & Identity',
-    description: 'Protect corporate assets by sourcing threat detection, identity access management, zero-trust network access, and compliance.',
-    icon: <Shield className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Cybersecurity and SASE Modernization',
+    context: 'Distributed enterprise · access and visibility',
+    challenge: 'Fragmented access controls, endpoint protection, and operational visibility.',
+    approach:
+      'Compare zero trust and managed detection options against identity, telemetry, and deployment dependencies.',
+    commercial: 'Evaluate license scope, service responsibilities, and phased adoption terms.',
+    outcome: 'Target: a documented control model and a practical deployment roadmap.',
   },
   {
-    title: 'Network Modernization',
-    description: 'Redesign connectivity portfolios utilizing SD-WAN architectures, high-bandwidth DIA circuits, and diverse carrier paths.',
-    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />
+    title: 'AI Workflow and Telecom Invoice Automation',
+    context: 'Finance operations · carrier billing analysis',
+    challenge: 'Manual invoice reconciliation and inconsistent exception handling.',
+    approach:
+      'Ingest invoices, extract structured fields, compare rate cards, and route exceptions to human review.',
+    commercial:
+      'Define validation thresholds, integration scope, and operating costs before scaling.',
+    outcome: 'Target: traceable exceptions and repeatable, human-reviewed reconciliation.',
   },
   {
-    title: 'Cloud Transformation',
-    description: 'Evaluate workloads for migration to public cloud, private hosting configurations, colocation facilities, and hybrid architectures.',
-    icon: <Cloud className="h-5 w-5 text-accent" aria-hidden />
+    title: 'Multi-Site Carrier and Contract Optimization',
+    context: 'Enterprise sourcing · multiple providers',
+    challenge: 'Different site needs, supplier proposals, and commercial terms.',
+    approach: 'Qualify service availability and plan migration dependencies and acceptance tests.',
+    commercial:
+      'Compare TCO, contract flexibility, escalation terms, and supplier negotiation priorities.',
+    outcome: 'Target: transparent costs and a migration plan aligned to contract dates.',
   },
-  {
-    title: 'Unified Communications',
-    description: 'Modernize collaboration tools by migrating legacy PBX setups to unified communications platforms (UCaaS).',
-    icon: <Users className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Contact Center Sourcing',
-    description: 'Enhance customer engagement workflows by sourcing omnichannel, cloud-native contact center platforms (CCaaS).',
-    icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'AI Enablement',
-    description: 'Analyze, qualify, and source AI-driven workflow engines and automation frameworks that integrate with existing applications.',
-    icon: <Cpu className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Technology Sourcing',
-    description: 'Execute structured, independent, and operator-neutral biddings to ensure competitive contract pricing and commercial terms.',
-    icon: <Layers className="h-5 w-5 text-accent" aria-hidden />
-  }
 ];
-
-export const technologyAreas: InfoCard[] = [
+export const portfolio = [
   {
-    title: 'Connectivity & SD-WAN',
-    description: 'DIA, enterprise broadband, private Ethernet, and managed SD-WAN architectures.',
-    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />
+    id: 'restaurant',
+    industry: 'Restaurant',
+    name: 'Olive & Rye',
+    url: 'https://food.yourshoppreview.com/',
+    description: 'A neighborhood deli with an editorial menu and clear catering pathways.',
+    capabilities: 'Filterable menu, catering presentation, and ordering preview.',
   },
   {
-    title: 'Cloud Infrastructure',
-    description: 'Public cloud deployments, private cloud hosting configurations, colocation, and hybrid solutions.',
-    icon: <Cloud className="h-5 w-5 text-accent" aria-hidden />
+    id: 'salon',
+    industry: 'Salon',
+    name: 'Forma Hair Studio',
+    url: 'https://salon.yourshoppreview.com/',
+    description: 'A considered studio experience that puts services and appointment intent first.',
+    capabilities: 'Service menu, reference gallery, and local appointment request demo.',
   },
   {
-    title: 'Cybersecurity & Identity',
-    description: 'Threat prevention, Zero Trust Network Access (ZTNA), identity management, and MSSP.',
-    icon: <Shield className="h-5 w-5 text-accent" aria-hidden />
+    id: 'boutique',
+    industry: 'Boutique',
+    name: 'Sunday Edit',
+    url: 'https://boutique.yourshoppreview.com/',
+    description: 'A colorful shop with a browsable, interactive merchandise collection.',
+    capabilities: 'Category filters, product details, wishlist, and demo bag.',
   },
-  {
-    title: 'Enterprise UCaaS & CCaaS',
-    description: 'Unified telephony, enterprise conferencing, team collaboration, and omnichannel contact centers.',
-    icon: <Users className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'AI & Sourcing Automation',
-    description: 'AI-assisted sourcing strategies, automated qualification, and decision intelligence tools.',
-    icon: <Cpu className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Lifecycle & Data Center Services',
-    description: 'Equipment sourcing, migration support, data center audits, and hybrid lifecycle solutions.',
-    icon: <Building2 className="h-5 w-5 text-accent" aria-hidden />
-  }
-];
-
-export const supplierEcosystem: InfoCard[] = [
-  {
-    title: 'Independent Positioning',
-    description: 'Our advisory recommendations are operator-neutral, aligning 100% with your corporate goals, metrics, and budget.',
-    icon: <Shield className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Supplier Portfolio Access',
-    description: 'Access 250+ top-tier and emerging global providers across network, cloud, cybersecurity, and voice architectures.',
-    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Pricing & SLA Leverage',
-    description: 'We leverage current contract databases and aggregate purchasing volume to secure tier-1 commercial rates and SLA terms.',
-    icon: <Banknote className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Lifecycle Implementation Support',
-    description: 'We coordinate transition schedules, manage vendor escalations, and support your engineering teams through deployment.',
-    icon: <CheckCircle2 className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'AI-Enhanced Sourcing Intel',
-    description: 'Analyze telecom spending, compare provider footprints, and check fiber locations using our decision modules.',
-    icon: <Cpu className="h-5 w-5 text-accent" aria-hidden />
-  },
-  {
-    title: 'Business-First Recommendations',
-    description: 'We ground technical designs in commercial viability, aligning your architecture with optimization targets.',
-    icon: <Briefcase className="h-5 w-5 text-accent" aria-hidden />
-  }
-];
-
-export const platformModules = [
-  {
-    title: 'Telecom Invoice Analyzer',
-    description: 'A Techsonic Platform module that audits telecom invoices, checks for contract compliance, and uncovers billing errors.',
-    icon: <FileText className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Expense Auditing'
-  },
-  {
-    title: 'Network Qualifier Pro',
-    description: 'A Techsonic Platform module that checks fiber maps, provider footprints, and bandwidth availability at enterprise sites.',
-    icon: <Globe2 className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Connectivity Sourcing'
-  },
-  {
-    title: 'StrategyIQ',
-    description: 'A Techsonic Platform module that calculates deal leverage, benchmarks supplier rates, and evaluates contract parameters.',
-    icon: <BarChart3 className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Sourcing Strategy'
-  },
-  {
-    title: 'RFP Response Pro',
-    description: 'A Techsonic Platform module that automates technical proposal comparisons and scores supplier responses.',
-    icon: <Layers className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Bid Management'
-  },
-  {
-    title: 'Compliance Tracker',
-    description: 'A Techsonic Platform module that audits provider security frameworks, compliance certifications, and risk indicators.',
-    icon: <ShieldCheck className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Risk Governance'
-  },
-  {
-    title: 'Meeting Wingman',
-    description: 'A Techsonic Platform module that records discovery parameters, highlights vendor details, and generates next steps.',
-    icon: <Users className="h-5 w-5 text-accent" aria-hidden />,
-    badge: 'Discovery Intelligence'
-  }
 ];

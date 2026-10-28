@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://gotechsonic.com/</loc>
-    <priority>1.00</priority>
-  </url>
-  <url>
-    <loc>https://gotechsonic.com/contact</loc>
-    <priority>0.80</priority>
-  </url>
+<url><loc>https://www.gotechsonic.com/</loc></url>
+<url><loc>https://www.gotechsonic.com/advisory</loc></url>
+<url><loc>https://www.gotechsonic.com/development</loc></url>
+<url><loc>https://www.gotechsonic.com/website-development</loc></url>
+<url><loc>https://www.gotechsonic.com/tools</loc></url>
+<url><loc>https://www.gotechsonic.com/intelligence</loc></url>
+<url><loc>https://www.gotechsonic.com/contact</loc></url>
 </urlset>

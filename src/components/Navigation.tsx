@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 export const navigationGroups = [
   {
+    id: 'advisory-navigation',
     label: 'Advisory & Solutions',
     items: [
       ['What We Do', '/advisory'],
@@ -10,6 +11,7 @@ export const navigationGroups = [
     ],
   },
   {
+    id: 'development-navigation',
     label: 'Development',
     items: [
       ['Services We Offer', '/development'],
@@ -18,15 +20,25 @@ export const navigationGroups = [
       ['Workflow Automation', '/workflow-automation'],
     ],
   },
+  {
+    id: 'tools-navigation',
+    label: 'Tools',
+    items: [
+      ['All Tools', '/tools'],
+      ['Contract Controls', '/tools#risk'],
+      ['SLA Credit Calculator', '/tools#sla'],
+      ['Bandwidth Planner', '/tools#bandwidth'],
+      ['Cost Comparison', '/tools#cost'],
+    ],
+  },
 ];
-export function NavigationGroup({ label, items }: (typeof navigationGroups)[number]) {
+export function NavigationGroup({ id, label, items }: (typeof navigationGroups)[number]) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const id = label.startsWith('Advisory') ? 'advisory-navigation' : 'development-navigation';
   useEffect(() => {
     setOpen(false);
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, location.hash]);
   useEffect(() => {
     const outside = (e: PointerEvent) => {
       if (!root.current?.contains(e.target as Node)) setOpen(false);
@@ -86,6 +98,13 @@ export function NavigationGroup({ label, items }: (typeof navigationGroups)[numb
           <NavLink
             key={path}
             to={path}
+            onClick={() => {
+              setOpen(false);
+              if (location.pathname === '/tools' && path.startsWith('/tools#'))
+                requestAnimationFrame(() =>
+                  document.getElementById(path.split('#')[1])?.scrollIntoView()
+                );
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
                 e.stopPropagation();

@@ -6,10 +6,41 @@ import { MemoryRouter } from 'react-router-dom';
 import { NavigationGroup, navigationGroups } from '../src/components/Navigation';
 import ApplicationsPage from '../src/pages/ApplicationsPage';
 import ContactPage from '../src/pages/ContactPage';
+import ToolsPage from '../src/pages/ToolsPage';
 vi.mock('../src/components/SpamCheck', () => ({ SpamCheck: () => null }));
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+});
+it('provides unique navigation IDs and the complete Tools hierarchy', async () => {
+  vi.stubGlobal('matchMedia', () => ({ matches: false }));
+  const user = userEvent.setup();
+  render(
+    <MemoryRouter>
+      {navigationGroups.map((group) => (
+        <NavigationGroup key={group.id} {...group} />
+      ))}
+    </MemoryRouter>
+  );
+  const ids = navigationGroups.map((group) => group.id);
+  expect(new Set(ids).size).toBe(ids.length);
+  expect(ids.map((id) => document.querySelectorAll(`#${id}`).length)).toEqual([1, 1, 1]);
+  await user.click(screen.getByRole('button', { name: 'Tools' }));
+  expect(screen.getByRole('link', { name: 'SLA Credit Calculator' }).getAttribute('href')).toBe(
+    '/tools#sla'
+  );
+  expect(screen.getByRole('link', { name: 'Cost Comparison' }).getAttribute('href')).toBe(
+    '/tools#cost'
+  );
+});
+it('retains tool section anchors', () => {
+  render(
+    <MemoryRouter>
+      <ToolsPage />
+    </MemoryRouter>
+  );
+  for (const id of ['risk', 'sla', 'bandwidth', 'cost'])
+    expect(document.getElementById(id)).toBeTruthy();
 });
 it('supports a mobile accordion, Escape, and closes after navigation', async () => {
   vi.stubGlobal('matchMedia', () => ({ matches: false }));

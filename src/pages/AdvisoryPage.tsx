@@ -1,7 +1,25 @@
 import { Link } from 'react-router-dom';
 import { advisoryServices } from '../data/content';
 import { AdvisoryProcess } from '../components/AdvisoryProcess';
+import {
+  Network,
+  CloudCog,
+  ShieldCheck,
+  MessagesSquare,
+  GitCompareArrows,
+  ChartNoAxesCombined,
+} from 'lucide-react';
+import { useSectionReveal } from '../lib/useSectionReveal';
+const serviceIcons = [
+  Network,
+  CloudCog,
+  ShieldCheck,
+  MessagesSquare,
+  GitCompareArrows,
+  ChartNoAxesCombined,
+];
 export default function AdvisoryPage() {
+  useSectionReveal();
   return (
     <>
       <section className="page-hero container">
@@ -23,6 +41,12 @@ export default function AdvisoryPage() {
         {advisoryServices.map((service, i) => (
           <article key={service.title}>
             <span className="index">0{i + 1}</span>
+            <div className="service-visual" aria-hidden="true">
+              {(() => {
+                const Icon = serviceIcons[i];
+                return <Icon strokeWidth={1.5} />;
+              })()}
+            </div>
             <div>
               <h2>{service.title}</h2>
               <p>{service.scope}</p>

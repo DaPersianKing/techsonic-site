@@ -7,8 +7,9 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["worker", "src/lib/contact.ts", "src/lib/news.ts"]
+  "include": ["worker", "src/lib/contact.ts", "src/lib/news.ts", "src/lib/advisor.ts", "src/data"]
 }

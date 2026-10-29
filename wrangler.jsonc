@@ -32,6 +32,14 @@
         "limit": 5,
         "period": 60
       }
+    },
+    {
+      "name": "CHAT_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 8,
+        "period": 60
+      }
     }
   ],
   "vars": {

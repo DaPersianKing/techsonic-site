@@ -44,6 +44,17 @@
   ],
   "vars": {
     "SITE_ORIGIN": "https://www.gotechsonic.com",
-    "TURNSTILE_SITE_KEY": "0x4AAAAAAFqKBWBNhkHpumTp"
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFqKBWBNhkHpumTp",
+    "AI_PROVIDER": "openai",
+    "AI_MODEL": "gpt-6-luna"
+  },
+  "secrets": {
+    "required": [
+      "AI_PROVIDER_KEY",
+      "TURNSTILE_SECRET",
+      "BREVO_API_KEY",
+      "BREVO_SENDER",
+      "CONTACT_TO"
+    ]
   }
 }

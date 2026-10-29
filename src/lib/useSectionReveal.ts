@@ -19,7 +19,7 @@ export function useSectionReveal() {
       { threshold: 0.08 }
     );
     document
-      .querySelectorAll('main section:not(.hero)')
+      .querySelectorAll('main section:not(.hero):not(.page-hero)')
       .forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);

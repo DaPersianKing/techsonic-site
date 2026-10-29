@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolio } from '../data/content';
+import { useSectionReveal } from '../lib/useSectionReveal';
 const packages = [
   {
     name: 'Standard',
@@ -41,6 +42,7 @@ const packages = [
   },
 ];
 export default function WebsitePage() {
+  useSectionReveal();
   const [preview, setPreview] = useState<'desktop' | 'mobile'>('desktop');
   return (
     <>

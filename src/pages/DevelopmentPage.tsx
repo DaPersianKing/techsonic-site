@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom';
+import { PanelsTopLeft, Blocks, Cable, Workflow } from 'lucide-react';
+import { useSectionReveal } from '../lib/useSectionReveal';
+const serviceIcons = [PanelsTopLeft, Blocks, Cable, Workflow];
+const serviceLinks = [
+  '/website-development',
+  '/applications',
+  '/development',
+  '/workflow-automation',
+];
 export default function DevelopmentPage() {
+  useSectionReveal();
   return (
     <>
       <section className="page-hero container">
@@ -47,9 +57,20 @@ export default function DevelopmentPage() {
         ].map(([title, scope, output], i) => (
           <article key={title}>
             <span className="index">0{i + 1}</span>
+            <div className="service-visual" aria-hidden="true">
+              {(() => {
+                const Icon = serviceIcons[i];
+                return <Icon strokeWidth={1.5} />;
+              })()}
+            </div>
             <div>
               <h2>{title}</h2>
               <p>{scope}</p>
+              {i !== 2 && (
+                <Link className="text-link" to={serviceLinks[i]}>
+                  Explore {title.toLowerCase()} →
+                </Link>
+              )}
             </div>
             <div>
               <h3>Built for operation</h3>

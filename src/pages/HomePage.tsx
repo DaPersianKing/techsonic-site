@@ -98,6 +98,21 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+      <section className="mission-section section" aria-labelledby="mission-title">
+        <div className="container mission-inner">
+          <div>
+            <p className="eyebrow">Our mission</p>
+            <h2 id="mission-title">
+              Make technology work for the business. Not the other way around.
+            </h2>
+          </div>
+          <p>
+            We exist to help organizations make confident technology decisions, eliminate
+            unnecessary complexity, and turn technical investments into measurable business value
+            through independent-minded advisory, thoughtful engineering, and practical execution.
+          </p>
+        </div>
+      </section>
       <Engineering />
       <Engagements />
       <section id="ai-tools" className="tools-promo section">

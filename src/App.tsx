@@ -16,10 +16,7 @@ const WebsitePage = lazy(() => import('./pages/WebsitePage'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage'));
 const IntelligencePage = lazy(() => import('./pages/IntelligencePage'));
 const AiAdvisor = lazy(() => import('./components/AiAdvisor'));
-const links = [
-  ['Tools', '/tools'],
-  ['Intelligence', '/intelligence'],
-];
+const links = [['Intelligence', '/intelligence']];
 export default function App() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -142,9 +139,9 @@ export default function App() {
           <div>
             <Logo variant="dark" size="xl" />
             <p>
-              Technology decisions. Technical execution.
+              Clearer decisions. Better technology.
               <br />
-              One connected approach.
+              Measurable value.
             </p>
           </div>
           <div>

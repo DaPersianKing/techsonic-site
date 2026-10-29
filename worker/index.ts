@@ -1,6 +1,7 @@
 import { contactSchema } from '../src/lib/contact';
 import { refreshNews, type BriefStore } from './news';
 import type { NewsBrief } from '../src/lib/news';
+import { handleAdvisor } from './advisor';
 export interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> };
   INTELLIGENCE?: BriefStore;
@@ -11,6 +12,11 @@ export interface Env {
   TURNSTILE_SECRET?: string;
   TURNSTILE_SITE_KEY?: string;
   SITE_ORIGIN?: string;
+  AI_PROVIDER_KEY?: string;
+  AI_MODEL?: string;
+  AI_PROVIDER?: string;
+  AI_MAX_OUTPUT_TOKENS?: string;
+  CHAT_LIMITER?: { limit(options: { key: string }): Promise<{ success: boolean }> };
 }
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
   Response.json(body, {
@@ -131,6 +137,7 @@ export async function handleRequest(
 ): Promise<Response> {
   const url = new URL(request.url);
   try {
+    if (url.pathname === '/api/chat') return await handleAdvisor(request, env, fetcher);
     if (url.pathname === '/api/contact') return await contact(request, env, fetcher);
     if (url.pathname.startsWith('/api/')) {
       if (request.method !== 'GET')

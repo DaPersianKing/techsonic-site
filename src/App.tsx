@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { Logo } from './components/Logo';
 import ErrorBoundary from './components/ErrorBoundary';
 import { routeMetadata } from './lib/metadata';
@@ -15,6 +15,7 @@ const DevelopmentPage = lazy(() => import('./pages/DevelopmentPage'));
 const WebsitePage = lazy(() => import('./pages/WebsitePage'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage'));
 const IntelligencePage = lazy(() => import('./pages/IntelligencePage'));
+const AiAdvisor = lazy(() => import('./components/AiAdvisor'));
 const links = [
   ['Tools', '/tools'],
   ['Intelligence', '/intelligence'],
@@ -22,6 +23,7 @@ const links = [
 export default function App() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [advisorLoaded, setAdvisorLoaded] = useState(false);
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && open) {
@@ -178,6 +180,29 @@ export default function App() {
           <span>Advisory · Solutions · Engineering</span>
         </div>
       </footer>
+      <div
+        className={
+          location.pathname === '/contact' || open ? 'advisor-shell suppressed' : 'advisor-shell'
+        }
+      >
+        {advisorLoaded ? (
+          <Suspense fallback={null}>
+            <AiAdvisor />
+          </Suspense>
+        ) : (
+          <button
+            className="advisor-launcher"
+            type="button"
+            onClick={() => setAdvisorLoaded(true)}
+            aria-label="Open Techsonic AI Advisor"
+            aria-controls="advisor-panel"
+            aria-expanded="false"
+          >
+            <MessageCircle size={21} aria-hidden />
+            <span>AI Advisor</span>
+          </button>
+        )}
+      </div>
     </>
   );
 }

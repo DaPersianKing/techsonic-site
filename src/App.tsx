@@ -1,157 +1,166 @@
-import { Suspense, lazy, useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Logo } from './components/Logo';
-import { scrollToHash } from './lib/utils';
 import ErrorBoundary from './components/ErrorBoundary';
-
+import { routeMetadata } from './lib/metadata';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
-
-const navItems = [
-  { label: 'Advisory', href: '#advisory' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Technology Areas', href: '#tech-areas' },
-  { label: 'AI Tools', href: '#ai-tools' },
-  { label: 'About', href: '#about' }
+const AdvisoryPage = lazy(() => import('./pages/AdvisoryPage'));
+const DevelopmentPage = lazy(() => import('./pages/DevelopmentPage'));
+const WebsitePage = lazy(() => import('./pages/WebsitePage'));
+const ToolsPage = lazy(() => import('./pages/ToolsPage'));
+const IntelligencePage = lazy(() => import('./pages/IntelligencePage'));
+const links = [
+  ['Advisory & Solutions', '/advisory'],
+  ['Development', '/development'],
+  ['Websites', '/website-development'],
+  ['Tools', '/tools'],
+  ['Intelligence', '/intelligence'],
 ];
-
-function App() {
+export default function App() {
   const location = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    if (location.pathname !== '/') {
-      window.location.href = `/${href}`;
-    } else {
-      scrollToHash(href);
-    }
-  };
-
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open) {
+        setOpen(false);
+        document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();
+      }
+    };
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, [open]);
+  useEffect(() => {
+    setOpen(false);
+    const pathname = location.pathname.replace(/\/+$/, '') || '/';
+    const meta = routeMetadata[pathname] ?? {
+      title: 'Page not found',
+      description: 'Find your way back to Techsonic.',
+    };
+    document.title = `${meta.title} | Techsonic`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description);
+    document
+      .querySelector('link[rel="canonical"]')
+      ?.setAttribute('href', `https://www.gotechsonic.com${pathname}`);
+    for (const key of ['og:title', 'twitter:title'])
+      document
+        .querySelector(`meta[property="${key}"],meta[name="${key}"]`)
+        ?.setAttribute('content', document.title);
+    for (const key of ['og:description', 'twitter:description'])
+      document
+        .querySelector(`meta[property="${key}"],meta[name="${key}"]`)
+        ?.setAttribute('content', meta.description);
+    document
+      .querySelector('meta[property="og:url"]')
+      ?.setAttribute('content', `https://www.gotechsonic.com${pathname}`);
+    if (location.hash)
+      requestAnimationFrame(() =>
+        document.getElementById(location.hash.slice(1))?.scrollIntoView()
+      );
+    else window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
   return (
-    <div className="min-h-screen bg-background text-white selection:bg-accent selection:text-background">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-2xl shadow-soft">
-        <div className="mx-auto flex max-w-[1220px] items-center justify-between px-6 py-4 lg:px-10">
-          <Link to="/" className="flex items-center" aria-label="Techsonic home">
-            <Logo variant="dark" size="lg" className="h-12 w-auto" />
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className="site-header">
+        <div className="header-inner">
+          <Link to="/" aria-label="Techsonic home">
+            <Logo variant="primary" size="xl" />
           </Link>
-
-          <nav className="hidden items-center gap-8 md:flex">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavLinkClick(e, item.href)}
-                className="text-sm font-medium text-slate-300 transition hover:text-white"
-              >
-                {item.label}
-              </a>
-            ))}
-            <NavLink
-              to="/contact"
-              className="rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
-            >
-              Schedule Advisory Consultation
-            </NavLink>
-          </nav>
-
-          <div className="flex items-center gap-4 md:hidden">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background transition hover:brightness-110"
-            >
-              Consult
-            </Link>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="rounded-full border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="Toggle mobile menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-        </div>
-        {isMobileMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-white/10 bg-background/90 py-4 px-6"
+          <button
+            className="menu-toggle"
+            aria-label={open ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={open}
+            aria-controls="main-nav"
+            onClick={() => setOpen(!open)}
           >
-            <div className="mx-auto flex flex-col items-stretch gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleNavLinkClick(e, item.href)}
-                  className="block px-4 py-2 text-base font-medium text-slate-300 transition hover:text-white hover:bg-white/5 rounded-md"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <NavLink
-                to="/contact"
-                className="mt-2 block rounded-full border border-white/10 bg-white/10 px-5 py-2 text-center text-base font-semibold text-white transition hover:bg-white/15"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Schedule Advisory Consultation
+            {open ? <X /> : <Menu />}
+          </button>
+          <nav
+            id="main-nav"
+            aria-label="Main navigation"
+            className={open ? 'main-nav open' : 'main-nav'}
+          >
+            {links.map(([label, path]) => (
+              <NavLink key={path} to={path}>
+                {label}
               </NavLink>
-            </div>
-          </motion.nav>
-        )}
+            ))}
+            <Link className="button compact" to="/contact">
+              Let’s talk <ArrowUpRight size={15} aria-hidden />
+            </Link>
+          </nav>
+        </div>
       </header>
-
-      <main className="scroll-mt-offset-nav">
-        <ErrorBoundary>
-          <Suspense fallback={<div className="grid min-h-screen place-items-center px-6 text-slate-300">Loading…</div>}>
-            {location.pathname === '/contact' ? <ContactPage /> : <HomePage />}
+      <main id="main" tabIndex={-1}>
+        <ErrorBoundary key={location.pathname}>
+          <Suspense
+            fallback={
+              <div className="container section" role="status">
+                Loading page…
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/advisory" element={<AdvisoryPage />} />
+              <Route path="/development" element={<DevelopmentPage />} />
+              <Route path="/website-development" element={<WebsitePage />} />
+              <Route path="/tools" element={<ToolsPage />} />
+              <Route path="/intelligence" element={<IntelligencePage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route
+                path="*"
+                element={
+                  <div className="container section">
+                    <p className="eyebrow">404</p>
+                    <h1>Let’s find the right path.</h1>
+                    <Link className="button" to="/">
+                      Back to Techsonic
+                    </Link>
+                  </div>
+                }
+              />
+            </Routes>
           </Suspense>
         </ErrorBoundary>
       </main>
-
-      <footer className="border-t border-white/10 bg-background/70 px-6 py-10 text-slate-400 backdrop-blur-xl sm:px-10">
-        <div className="mx-auto flex max-w-[1220px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-5">
-            <Logo variant="dark" size="xl" className="h-16 shrink-0" />
-            <div>
-              <p className="max-w-xl text-sm leading-6 text-slate-400">
-                Techsonic helps organizations evaluate, source, and optimize technology solutions. We combine independent advisory with supplier intelligence and purpose-built automation.
-              </p>
-            </div>
+      <footer className="site-footer">
+        <div className="container footer-grid">
+          <div>
+            <Logo variant="dark" size="xl" />
+            <p>
+              Technology decisions. Technical execution.
+              <br />
+              One connected approach.
+            </p>
           </div>
-          <div className="grid gap-3 text-sm sm:text-right">
-            <a
-              href="/#advisory"
-              onClick={(e) => {
-                e.preventDefault();
-                if (location.pathname !== '/') {
-                  window.location.href = '/#advisory';
-                } else {
-                  scrollToHash('#advisory');
-                }
-              }}
-              className="transition hover:text-white"
-            >
-              Advisory
+          <div>
+            <p className="eyebrow">Explore</p>
+            {links.map(([label, path]) => (
+              <Link key={path} to={path}>
+                {label}
+              </Link>
+            ))}
+          </div>
+          <div>
+            <p className="eyebrow">Start a conversation</p>
+            <a href="mailto:hello@gotechsonic.com">hello@gotechsonic.com</a>
+            <a href="tel:+14242793586">+1 424 279 3586</a>
+            <a href="https://www.linkedin.com/company/gotechsonic" target="_blank" rel="noreferrer">
+              LinkedIn ↗
             </a>
-            <a href="/contact" className="transition hover:text-white">
-              Contact
-            </a>
-            <a href="https://www.linkedin.com/company/gotechsonic" className="transition hover:text-white">
-              LinkedIn
-            </a>
-            <span className="text-slate-500">© 2026 Techsonic LLC</span>
+            <Link to="/contact">Contact Techsonic</Link>
           </div>
         </div>
+        <div className="container footer-bottom">
+          <span>© {new Date().getFullYear()} Techsonic LLC</span>
+          <span>Advisory · Solutions · Engineering</span>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }
-
-export default App;
-

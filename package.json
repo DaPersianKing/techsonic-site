@@ -5,26 +5,30 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "npm run build && wrangler dev",
-    "lint": "eslint . --ext .ts,.tsx",
-    "format": "prettier --write .",
-    "deploy": "npm run build && wrangler deploy"
+    "build": "npm run typecheck && vite build && node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.worker.json",
+    "test": "vitest run",
+    "worker:dev": "wrangler dev",
+    "worker:check": "wrangler deploy --dry-run --outdir tmp/worker-build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx --max-warnings 0",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.1.0",
     "@radix-ui/react-slot": "^1.0.0",
-    "framer-motion": "^11.0.0",
+    "fast-xml-parser": "^5.11.2",
     "lucide-react": "^0.470.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.0.0",
-    "react-router-dom": "^6.17.0",
+    "react-router-dom": "^7.18.5",
     "zod": "^4.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.42.4",
-    "@types/node": "^20.14.0",
+    "@cloudflare/workers-types": "^5.20261028.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^7.14.0",
@@ -33,15 +37,16 @@
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^29.1.1",
     "postcss": "^8.4.40",
     "prettier": "^3.0.1",
     "tailwindcss": "^3.4.5",
     "typescript": "^5.5.4",
     "vite": "^8.1.0",
-    "wrangler": "^4.106.0"
+    "vitest": "^5.0.5",
+    "wrangler": "^4.154.0"
   }
 }

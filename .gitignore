@@ -11,9 +11,9 @@ yarn-debug.log*
 yarn-error.log*
 coverage
 **/*.local
-
-# wrangler files
 .wrangler
 .dev.vars*
 !.dev.vars.example
 !.env.example
+test-results
+tmp

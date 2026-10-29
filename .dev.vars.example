@@ -1,0 +1,7 @@
+# Local-only configuration; use a separate preview Worker and Turnstile test configuration.
+SITE_ORIGIN=http://localhost:8787
+BREVO_API_KEY=
+BREVO_SENDER=
+CONTACT_TO=
+TURNSTILE_SECRET=
+TURNSTILE_SITE_KEY=

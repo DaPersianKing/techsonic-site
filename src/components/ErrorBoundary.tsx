@@ -10,7 +10,7 @@ interface State {
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   public static getDerivedStateFromError(_: Error): State {
@@ -19,16 +19,21 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error('Uncaught error:', error, errorInfo);
   }
 
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="grid min-h-screen place-items-center px-6 text-slate-300">
+        <div className="container section">
           <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white">Oops! Something went wrong.</h2>
-            <p className="mt-4 text-lg">We&apos;re sorry for the inconvenience. Please try refreshing the page.</p>
+            <h2 className="text-2xl font-semibold">This page could not load.</h2>
+            <p className="mt-4 text-lg">
+              Please refresh the page or contact hello@gotechsonic.com.
+            </p>
+            <button className="button" onClick={() => window.location.reload()}>
+              Reload page
+            </button>
           </div>
         </div>
       );

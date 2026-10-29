@@ -15,32 +15,36 @@ export function ShowcaseImage({
         rel="noreferrer"
         aria-label={`View full-resolution ${title} graphic (opens in a new tab)`}
       >
-        <picture>
-          <source srcSet={`/assets/${directory}/${id}.webp`} type="image/webp" />
-          <img
-            src={`/assets/${directory}/${id}.png`}
-            alt={
-              directory === 'applications'
-                ? `${title} approved product logo`
-                : `${title} architecture illustration; detailed steps follow in the text`
-            }
-            width={
-              directory === 'applications'
-                ? 1254
-                : id === 'ai-customer-support-chatbot'
-                  ? 1024
-                  : 1086
-            }
-            height={
-              directory === 'applications'
-                ? 1254
-                : id === 'ai-customer-support-chatbot'
-                  ? 1536
-                  : 1448
-            }
-            loading="lazy"
-          />
-        </picture>
+        <span
+          className={`showcase-image-frame image-zoom-container image-zoom-container--${directory === 'applications' ? 'brand' : 'technical'}`}
+        >
+          <picture>
+            <source srcSet={`/assets/${directory}/${id}.webp`} type="image/webp" />
+            <img
+              src={`/assets/${directory}/${id}.png`}
+              alt={
+                directory === 'applications'
+                  ? `${title} approved product logo`
+                  : `${title} architecture illustration; detailed steps follow in the text`
+              }
+              width={
+                directory === 'applications'
+                  ? 1254
+                  : id === 'ai-customer-support-chatbot'
+                    ? 1024
+                    : 1086
+              }
+              height={
+                directory === 'applications'
+                  ? 1254
+                  : id === 'ai-customer-support-chatbot'
+                    ? 1536
+                    : 1448
+              }
+              loading="lazy"
+            />
+          </picture>
+        </span>
       </a>
       <figcaption>View full-resolution graphic ↗</figcaption>
     </figure>

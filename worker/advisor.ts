@@ -112,10 +112,14 @@ export async function handleAdvisor(
   } catch {
     return reply({ error: 'AI Advisor received an invalid response. Please retry later.' }, 502);
   }
+  if (!result || !Array.isArray(result.output))
+    return reply({ error: 'AI Advisor received an invalid response. Please retry later.' }, 502);
   const answer = result.output
-    ?.filter((item) => item.type === 'message' && item.role === 'assistant')
+    .filter(
+      (item) => item?.type === 'message' && item.role === 'assistant' && Array.isArray(item.content)
+    )
     .flatMap((item) => item.content ?? [])
-    .filter((part) => part.type === 'output_text')
+    .filter((part) => part?.type === 'output_text' && typeof part.text === 'string')
     .map((part) => part.text ?? '')
     .join('\n')
     .trim();

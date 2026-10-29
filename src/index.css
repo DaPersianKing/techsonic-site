@@ -786,21 +786,31 @@ th {
   border-radius: 18px;
   border: 5px solid #25303a;
 }
+.image-zoom-container {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 @media (hover: hover) and (pointer: fine) {
-  .image-zoom-container {
-    overflow: hidden;
-    isolation: isolate;
-  }
   .image-zoom-container img {
     transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
   }
-  .image-zoom-container:hover img {
-    transform: translate3d(-0.5%, -0.5%, 0) scale(1.055);
+  .image-zoom-container--portfolio:hover img {
+    transform: translate(-0.5%, -0.5%) scale(1.055);
+  }
+  .image-zoom-container--brand:hover img {
+    transform: translate(-0.2%, -0.2%) scale(1.018);
+  }
+  .image-zoom-container--technical:hover img {
+    transform: translate(-0.15%, -0.15%) scale(1.018);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .image-zoom-container img,
-  .image-zoom-container:hover img {
+  .image-zoom-container--portfolio:hover img,
+  .image-zoom-container--brand:hover img,
+  .image-zoom-container--technical:hover img {
     transition: none;
     transform: none;
   }
@@ -1489,6 +1499,9 @@ pre {
   background: #edf2f1;
   border: 1px solid var(--line);
 }
+.case-diagram-frame {
+  border-radius: inherit;
+}
 .case-diagram img {
   width: 100%;
   height: auto;
@@ -1690,6 +1703,16 @@ pre {
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+.showcase-image-frame,
+.showcase-image-frame picture {
+  display: block;
+}
+.showcase-image-frame {
+  border-radius: 4px;
+}
+.showcase-image-frame img {
+  display: block;
 }
 .showcase-image.applications img {
   max-height: 360px;

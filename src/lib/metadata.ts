@@ -1,4 +1,19 @@
 export const routeMetadata: Record<string, { title: string; description: string }> = {
+  '/success-profiles': {
+    title: 'Success Profiles',
+    description:
+      'Anonymized enterprise engagement profiles across connectivity, communications, cybersecurity, and infrastructure modernization.',
+  },
+  '/applications': {
+    title: 'Custom Applications',
+    description:
+      'Explore Telco SME, Strategy IQ, Telecom Invoice Analyzer, and Supplier Intel Engine development.',
+  },
+  '/workflow-automation': {
+    title: 'Workflow Automation',
+    description:
+      'Explore API automation, customer support escalation, AI assistant architecture, and lead qualification workflows.',
+  },
   '/': {
     title: 'Technology Advisory. Solutions. Engineering.',
     description:

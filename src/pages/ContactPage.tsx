@@ -12,6 +12,8 @@ export default function ContactPage() {
   const [state, setState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
   const context = [
+    params.get('application') && `Application: ${params.get('application')?.slice(0, 80)}.`,
+    params.get('workflow') && `Workflow: ${params.get('workflow')?.slice(0, 80)}.`,
     params.get('demo') && `Interested in the ${params.get('demo')?.slice(0, 40)} website demo.`,
     params.get('package') && `Package: ${params.get('package')?.slice(0, 40)}.`,
     params.get('intent') && `Request: ${params.get('intent')?.slice(0, 60)}.`,

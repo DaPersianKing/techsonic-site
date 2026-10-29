@@ -4,6 +4,10 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Logo } from './components/Logo';
 import ErrorBoundary from './components/ErrorBoundary';
 import { routeMetadata } from './lib/metadata';
+import { NavigationGroup, navigationGroups } from './components/Navigation';
+const SuccessProfilesPage = lazy(() => import('./pages/SuccessProfilesPage'));
+const ApplicationsPage = lazy(() => import('./pages/ApplicationsPage'));
+const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const AdvisoryPage = lazy(() => import('./pages/AdvisoryPage'));
@@ -12,9 +16,6 @@ const WebsitePage = lazy(() => import('./pages/WebsitePage'));
 const ToolsPage = lazy(() => import('./pages/ToolsPage'));
 const IntelligencePage = lazy(() => import('./pages/IntelligencePage'));
 const links = [
-  ['Advisory & Solutions', '/advisory'],
-  ['Development', '/development'],
-  ['Websites', '/website-development'],
   ['Tools', '/tools'],
   ['Intelligence', '/intelligence'],
 ];
@@ -84,6 +85,9 @@ export default function App() {
             aria-label="Main navigation"
             className={open ? 'main-nav open' : 'main-nav'}
           >
+            {navigationGroups.map((group) => (
+              <NavigationGroup key={group.label} {...group} />
+            ))}
             {links.map(([label, path]) => (
               <NavLink key={path} to={path}>
                 {label}
@@ -112,6 +116,9 @@ export default function App() {
               <Route path="/tools" element={<ToolsPage />} />
               <Route path="/intelligence" element={<IntelligencePage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/success-profiles" element={<SuccessProfilesPage />} />
+              <Route path="/applications" element={<ApplicationsPage />} />
+              <Route path="/workflow-automation" element={<WorkflowAutomationPage />} />
               <Route
                 path="*"
                 element={
@@ -140,6 +147,16 @@ export default function App() {
           </div>
           <div>
             <p className="eyebrow">Explore</p>
+            {navigationGroups.map((group) => (
+              <div className="footer-nav-group" key={group.label}>
+                <h3>{group.label}</h3>
+                {group.items.map(([name, path]) => (
+                  <Link key={path} to={path}>
+                    {name}
+                  </Link>
+                ))}
+              </div>
+            ))}
             {links.map(([label, path]) => (
               <Link key={path} to={path}>
                 {label}

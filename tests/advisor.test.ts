@@ -49,6 +49,16 @@ describe('AI Advisor endpoint', () => {
       await (await handleRequest(new Request('https://www.gotechsonic.com/api/chat'), e)).json()
     ).toEqual({ available: false });
     expect((await handleRequest(request(valid), e)).status).toBe(503);
+    const noModel = env();
+    delete noModel.AI_MODEL;
+    expect(
+      await (
+        await handleRequest(new Request('https://www.gotechsonic.com/api/chat'), noModel)
+      ).json()
+    ).toEqual({ available: false });
+    const noLimiter = env();
+    delete noLimiter.CHAT_LIMITER;
+    expect((await handleRequest(request(valid), noLimiter)).status).toBe(503);
   });
   it('passes bounded approved context to a server-side provider and returns text only', async () => {
     const fetcher = vi.fn().mockResolvedValue(provider());
@@ -120,7 +130,38 @@ describe('AI Advisor endpoint', () => {
         await handleRequest(
           request(valid),
           env(),
+          vi.fn().mockRejectedValue(new DOMException('Timeout', 'TimeoutError'))
+        )
+      ).status
+    ).toBe(504);
+    expect(
+      (
+        await handleRequest(
+          request(valid),
+          env(),
           vi.fn().mockResolvedValue(Response.json({ status: 'incomplete', output: [] }))
+        )
+      ).status
+    ).toBe(502);
+    expect(
+      (
+        await handleRequest(
+          request(valid),
+          env(),
+          vi.fn().mockResolvedValue(new Response('invalid json'))
+        )
+      ).status
+    ).toBe(502);
+    expect(
+      (
+        await handleRequest(
+          request(valid),
+          env(),
+          vi
+            .fn()
+            .mockResolvedValue(
+              new Response(JSON.stringify({ status: 'completed', output: [null] }))
+            )
         )
       ).status
     ).toBe(502);

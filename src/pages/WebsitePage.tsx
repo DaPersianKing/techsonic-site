@@ -82,7 +82,9 @@ export default function WebsitePage() {
         <div className="portfolio">
           {portfolio.map((site) => (
             <article key={site.id}>
-              <div className={`portfolio-preview image-zoom-container ${preview}`}>
+              <div
+                className={`portfolio-preview image-zoom-container image-zoom-container--portfolio ${preview}`}
+              >
                 <img
                   src={`/assets/portfolio/${site.id}-${preview}.jpg`}
                   alt={`${site.name} live website, ${preview} screenshot`}

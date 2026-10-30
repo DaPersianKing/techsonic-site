@@ -137,6 +137,16 @@ export async function handleRequest(
 ): Promise<Response> {
   const url = new URL(request.url);
   try {
+    // No public agent-discovery catalog is offered; do not return the SPA HTML as JSON.
+    if (url.pathname === '/.well-known/ard.json') {
+      return new Response(null, {
+        status: 404,
+        headers: {
+          'Cache-Control': 'no-store',
+          'X-Content-Type-Options': 'nosniff',
+        },
+      });
+    }
     if (url.pathname === '/api/chat') return await handleAdvisor(request, env, fetcher);
     if (url.pathname === '/api/contact') return await contact(request, env, fetcher);
     if (url.pathname.startsWith('/api/')) {

@@ -23,7 +23,10 @@ it('keeps required public Worker variables and infrastructure bindings in releas
   });
   expect(config.vars).toHaveProperty('TURNSTILE_SITE_KEY');
   expect(Object.keys(config.vars).some((name) => name.startsWith('VITE_'))).toBe(false);
-  expect(config.assets).toMatchObject({ binding: 'ASSETS', run_worker_first: ['/api/*'] });
+  expect(config.assets).toMatchObject({
+    binding: 'ASSETS',
+    run_worker_first: ['/api/*', '/.well-known/ard.json'],
+  });
   expect(config.kv_namespaces.map(({ binding }) => binding)).toContain('INTELLIGENCE');
   expect(config.ratelimits.map(({ name }) => name)).toEqual(
     expect.arrayContaining(['CONTACT_LIMITER', 'CHAT_LIMITER'])

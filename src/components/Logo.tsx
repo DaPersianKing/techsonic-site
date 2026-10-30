@@ -37,6 +37,9 @@ export function Logo({
       <img
         src={source}
         alt={variant === 'legal' ? '' : alt}
+        width={variant === 'icon' ? 64 : 360}
+        height={variant === 'icon' ? 64 : variant === 'dark' ? 247 : 244}
+        decoding="async"
         className="h-full w-auto object-contain"
       />
       {variant === 'legal' && <span className="ml-3 text-sm font-semibold">Techsonic LLC</span>}

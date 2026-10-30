@@ -2093,3 +2093,129 @@ pre {
     grid-column: 2;
   }
 }
+
+.breadcrumbs {
+  padding-top: 24px;
+  font-size: 0.875rem;
+}
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+.breadcrumbs li + li::before {
+  content: '/';
+  margin-right: 10px;
+  color: #637080;
+}
+.breadcrumbs a,
+.related-resources h3 a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin: 28px 0;
+}
+.related-grid p {
+  margin-top: 12px;
+}
+
+.privacy-disclosure {
+  padding-block: 20px;
+  font-size: 0.875rem;
+}
+.privacy-disclosure p {
+  max-width: 78ch;
+  margin-block: 12px;
+}
+.privacy-disclosure summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.privacy-disclosure button {
+  margin-top: 16px;
+}
+.consent-banner {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 110;
+  background: #fff;
+  border: 1px solid #b7c4ce;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 8px 32px #12243322;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-height: 70dvh;
+  overflow: auto;
+}
+.consent-banner h2 {
+  font-size: 1.2rem;
+}
+.consent-banner p {
+  max-width: 75ch;
+  margin-block: 10px;
+}
+.consent-banner a {
+  text-decoration: underline;
+}
+.consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.consent-actions button {
+  min-height: 44px;
+}
+.consent-dialog {
+  max-width: 620px;
+  width: calc(100% - 32px);
+  max-height: 85dvh;
+  overflow: auto;
+  border: 1px solid #b7c4ce;
+  border-radius: 8px;
+  padding: 28px;
+  color: #14212b;
+  background: #fff;
+}
+.consent-dialog::backdrop {
+  background: #10233288;
+}
+.consent-dialog h2 {
+  font-size: 1.5rem;
+}
+.consent-dialog p,
+.analytics-toggle {
+  margin-block: 18px;
+}
+.analytics-toggle {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.analytics-toggle input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .consent-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+}
+@media (max-width: 700px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}

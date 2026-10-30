@@ -1,10 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { categories, contactSchema, sendContact } from '../lib/contact';
 import { SpamCheck } from '../components/SpamCheck';
 import { Button } from '../components/ui/button';
+import { trackAnalytics } from '../lib/analytics';
+const subscribeToQuery = () => () => {};
 export default function ContactPage() {
-  const [params] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  // Static HTML has no query context. Hydration starts with that same snapshot,
+  // then applies approved inquiry prefills without changing the canonical URL.
+  const query = useSyncExternalStore(
+    subscribeToQuery,
+    () => searchParams.toString(),
+    () => ''
+  );
+  const params = new URLSearchParams(query);
   const category = categories.find((c) => c === params.get('category')) ?? 'Technology Advisory';
   const [token, setToken] = useState('');
   const onToken = useCallback((value: string) => setToken(value), []);
@@ -75,6 +85,7 @@ export default function ContactPage() {
         ) : (
           <form
             className="stack"
+            onChangeCapture={() => trackAnalytics({ name: 'contact_form_start' })}
             onSubmit={async (e) => {
               e.preventDefault();
               if (state === 'sending') return;
@@ -98,6 +109,7 @@ export default function ContactPage() {
               setState('sending');
               try {
                 await sendContact(parsed.data);
+                trackAnalytics({ name: 'generate_lead' });
                 setState('success');
               } catch (failure) {
                 setError(
@@ -130,7 +142,7 @@ export default function ContactPage() {
             </label>
             <label>
               Inquiry category
-              <select name="category" defaultValue={category}>
+              <select key={category} name="category" defaultValue={category}>
                 {categories.map((c) => (
                   <option key={c}>{c}</option>
                 ))}

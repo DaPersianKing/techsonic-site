@@ -4,11 +4,14 @@ import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import AiAdvisor from '../src/components/AiAdvisor';
+import { trackAnalytics } from '../src/lib/analytics';
+vi.mock('../src/lib/analytics', () => ({ trackAnalytics: vi.fn(() => true) }));
 
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
+  vi.mocked(trackAnalytics).mockClear();
 });
 const renderAdvisor = () =>
   render(
@@ -44,6 +47,8 @@ describe('AI Advisor interface', () => {
     expect(screen.queryByText('Consider site inventory first.')).toBeNull();
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).toBeNull();
+    expect(trackAnalytics).toHaveBeenCalledTimes(1);
+    expect(trackAnalytics).toHaveBeenCalledWith({ name: 'ai_advisor_open' });
   });
   it('shows unavailable state without making a model request', async () => {
     const fetcher = vi.fn().mockResolvedValue(Response.json({ available: false }));

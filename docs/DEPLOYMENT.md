@@ -21,9 +21,11 @@ npm run worker:check
 npm run worker:dev
 ```
 
-`worker:check` bundles without deploying. `worker:dev` serves built assets and API handlers locally. Vite alone (`npm run dev`) serves the frontend; the form and brief correctly report unavailable when there is no API. Build output includes separate lazy route chunks and static route documents with route-specific metadata. CSP hashes are generated from the built structured metadata. `public/_headers` must be used through the build, not copied directly to hosting.
+`worker:check` bundles without deploying. `worker:dev` serves built assets and API handlers locally. Vite alone (`npm run dev`) serves the frontend; the form and brief correctly report unavailable when there is no API. Build output includes separate lazy route chunks and ten prerendered route documents with real page content and route-specific metadata. The browser hydrates those documents. Build-time rendering runs no browser effects or live API calls. CSP hashes cover each route's structured data. `public/_headers` must be used through the build, not copied directly to hosting. Node 24 and the declared dev dependencies (including Vite) are required at build time.
 
 ## Required Cloudflare configuration
+
+Production HTTPS and hostname enforcement: follow the [V2.5 SEO audit and manual Cloudflare checklist](V2.5-SEO-AUDIT.md). Always Use HTTPS was observed On and the eight-request live matrix passed on October 29, 2026; repeat verification before release. Live dashboard/DNS changes must be performed manually; metadata alone does not enforce redirects. The audit also documents optional Search Console verification and the implemented consent-gated GA4 client. All GA4 build flags default false; review consent wording and stream Enhanced Measurement settings before a separately approved activation. No analytics is enabled by this release's default build.
 
 1. Create a **separate preview Worker** and separate KV namespace. Copy reviewed config with a preview name; do not use a production deploy command as a preview step. Do not attach the production custom domain.
 2. The config declares `INTELLIGENCE` without an account-specific ID, which provides isolated local storage in Wrangler dev. Before deployment, create/select the intended KV namespace and add its actual ID through the reviewed config or dashboard. Recent Wrangler versions can provision an unspecified namespace during deployment; do not accept production provisioning until reviewed. No remote namespace was created by this implementation.

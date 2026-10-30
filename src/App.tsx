@@ -1,23 +1,20 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { Logo } from './components/Logo';
 import ErrorBoundary from './components/ErrorBoundary';
 import { routeMetadata } from './lib/metadata';
 import { NavigationGroup, navigationGroups } from './components/Navigation';
-const SuccessProfilesPage = lazy(() => import('./pages/SuccessProfilesPage'));
-const ApplicationsPage = lazy(() => import('./pages/ApplicationsPage'));
-const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage'));
-const HomePage = lazy(() => import('./pages/HomePage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const AdvisoryPage = lazy(() => import('./pages/AdvisoryPage'));
-const DevelopmentPage = lazy(() => import('./pages/DevelopmentPage'));
-const WebsitePage = lazy(() => import('./pages/WebsitePage'));
-const ToolsPage = lazy(() => import('./pages/ToolsPage'));
-const IntelligencePage = lazy(() => import('./pages/IntelligencePage'));
+import { breadcrumbs, canonicalUrl, serializedStructuredData } from './lib/seo';
+import { RelatedResources } from './components/RelatedResources';
+import { routeLoaders } from './lib/routeLoaders';
+import { AnalyticsConsent } from './components/AnalyticsConsent';
+const lazyPages = Object.fromEntries(
+  Object.entries(routeLoaders).map(([path, load]) => [path, lazy(load)])
+);
 const AiAdvisor = lazy(() => import('./components/AiAdvisor'));
 const links = [['Intelligence', '/intelligence']];
-export default function App() {
+export default function App({ pages = lazyPages }: { pages?: Record<string, ComponentType> }) {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [advisorLoaded, setAdvisorLoaded] = useState(false);
@@ -39,10 +36,15 @@ export default function App() {
       description: 'Find your way back to Techsonic.',
     };
     document.title = `${meta.title} | Techsonic`;
+    let robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.name = 'robots';
+      document.head.appendChild(robots);
+    }
+    robots.content = routeMetadata[pathname] ? 'index, follow' : 'noindex, follow';
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description);
-    document
-      .querySelector('link[rel="canonical"]')
-      ?.setAttribute('href', `https://www.gotechsonic.com${pathname}`);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl(pathname));
     for (const key of ['og:title', 'twitter:title'])
       document
         .querySelector(`meta[property="${key}"],meta[name="${key}"]`)
@@ -53,7 +55,9 @@ export default function App() {
         ?.setAttribute('content', meta.description);
     document
       .querySelector('meta[property="og:url"]')
-      ?.setAttribute('content', `https://www.gotechsonic.com${pathname}`);
+      ?.setAttribute('content', canonicalUrl(pathname));
+    const schema = document.querySelector('script[type="application/ld+json"]');
+    if (schema) schema.textContent = serializedStructuredData(pathname);
     if (location.hash)
       requestAnimationFrame(() =>
         document.getElementById(location.hash.slice(1))?.scrollIntoView()
@@ -99,6 +103,21 @@ export default function App() {
         </div>
       </header>
       <main id="main" tabIndex={-1}>
+        {breadcrumbs(location.pathname).length > 0 && (
+          <nav className="container breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+              {breadcrumbs(location.pathname).map((item, index) => (
+                <li key={item.url}>
+                  {index === 0 ? (
+                    <Link to="/">Home</Link>
+                  ) : (
+                    <span aria-current="page">{item.name}</span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
         <ErrorBoundary key={location.pathname}>
           <Suspense
             fallback={
@@ -108,16 +127,9 @@ export default function App() {
             }
           >
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/advisory" element={<AdvisoryPage />} />
-              <Route path="/development" element={<DevelopmentPage />} />
-              <Route path="/website-development" element={<WebsitePage />} />
-              <Route path="/tools" element={<ToolsPage />} />
-              <Route path="/intelligence" element={<IntelligencePage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/success-profiles" element={<SuccessProfilesPage />} />
-              <Route path="/applications" element={<ApplicationsPage />} />
-              <Route path="/workflow-automation" element={<WorkflowAutomationPage />} />
+              {Object.entries(pages).map(([path, Page]) => (
+                <Route key={path} path={path} element={<Page />} />
+              ))}
               <Route
                 path="*"
                 element={
@@ -133,6 +145,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </ErrorBoundary>
+        <RelatedResources path={location.pathname} />
       </main>
       <footer className="site-footer">
         <div className="container footer-grid">
@@ -177,6 +190,7 @@ export default function App() {
           <span>Advisory · Solutions · Engineering</span>
         </div>
       </footer>
+      <AnalyticsConsent />
       <div
         className={
           location.pathname === '/contact' || open ? 'advisor-shell suppressed' : 'advisor-shell'

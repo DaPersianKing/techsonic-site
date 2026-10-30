@@ -2,8 +2,23 @@ import CarrierSlaCalculator from '../components/CarrierSlaCalculator';
 import SlaCreditCalculator from '../components/SlaCreditCalculator';
 import BandwidthPlanner from '../components/BandwidthPlanner';
 import CostComparison from '../components/CostComparison';
-import { useEffect } from 'react';
+import { useEffect, type SyntheticEvent } from 'react';
 import { useLocation } from 'react-router-dom';
+import { trackAnalytics } from '../lib/analytics';
+import { type ToolId } from '../lib/analytics-policy';
+
+const toolSections: Record<string, ToolId> = {
+  risk: 'contract-controls',
+  sla: 'sla-credit',
+  bandwidth: 'bandwidth',
+  cost: 'cost-comparison',
+};
+function trackTool(event: SyntheticEvent) {
+  if (!(event.target instanceof Element)) return;
+  const section = event.target.closest('.tool-section');
+  const tool = section && toolSections[section.id];
+  if (tool) trackAnalytics({ name: 'tool_use', tool });
+}
 export default function ToolsPage() {
   const { hash } = useLocation();
   useEffect(() => {
@@ -35,7 +50,13 @@ export default function ToolsPage() {
           ))}
         </div>
       </section>
-      <div className="container section">
+      <div
+        className="container section"
+        onChangeCapture={trackTool}
+        onClickCapture={(event) => {
+          if (event.target instanceof Element && event.target.closest('button')) trackTool(event);
+        }}
+      >
         <CarrierSlaCalculator />
         <SlaCreditCalculator />
         <BandwidthPlanner />

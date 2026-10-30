@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MessageCircle, Send, X } from 'lucide-react';
+import { trackAnalytics } from '../lib/analytics';
 import {
   MAX_ADVISOR_CONTEXT_CHARS,
   MAX_ADVISOR_TURNS,
@@ -46,6 +47,12 @@ export default function AiAdvisor() {
   const location = useLocation();
   const previousPath = useRef(location.pathname);
   const conversationVersion = useRef(0);
+  const recordedOpen = useRef(false);
+
+  useEffect(() => {
+    if (open && !recordedOpen.current) trackAnalytics({ name: 'ai_advisor_open' });
+    recordedOpen.current = open;
+  }, [open]);
 
   function close() {
     setOpen(false);

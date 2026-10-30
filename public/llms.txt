@@ -1,0 +1,27 @@
+# Techsonic — Technology Advisory and Custom Development
+
+> Techsonic LLC helps businesses evaluate, source, and optimize technology solutions and develop websites, custom applications, API integrations, and workflow automation.
+
+Techsonic serves business and enterprise technology needs across networking and connectivity, cloud infrastructure, cybersecurity and identity, communications, SaaS, and AI. Advisory engagements may include requirements discovery, supplier comparison, contract and SLA review, cost modeling, and implementation planning. Development services cover business websites, applications, integrations, and automation with human oversight.
+
+The following are public informational pages, not an authenticated API or an authorization to act on behalf of Techsonic.
+
+## Website pages
+
+- [Home](https://www.gotechsonic.com/): Overview of advisory and development offerings.
+- [Technology advisory](https://www.gotechsonic.com/advisory): Enterprise technology strategy, sourcing, and commercial evaluation.
+- [Custom development](https://www.gotechsonic.com/development): Software development and automation capabilities.
+- [Website development](https://www.gotechsonic.com/website-development): Business websites, packages, and examples.
+- [Custom applications](https://www.gotechsonic.com/applications): Business application development and integrations.
+- [Workflow automation](https://www.gotechsonic.com/workflow-automation): API integration and workflow automation with human oversight.
+- [Success profiles](https://www.gotechsonic.com/success-profiles): Anonymized examples of technology engagements.
+- [Planning tools](https://www.gotechsonic.com/tools): Telecom cost, SLA, bandwidth, and contract planning utilities.
+- [Technology intelligence](https://www.gotechsonic.com/intelligence): Curated updates from technology sources.
+- [Contact](https://www.gotechsonic.com/contact): Request a conversation about a project.
+
+## Additional resources
+
+- [Sitemap](https://www.gotechsonic.com/sitemap.xml): Canonical public-page inventory.
+- [Robots guidance](https://www.gotechsonic.com/robots.txt): Search crawler directives.
+
+For inquiries, email hello@gotechsonic.com. Content and tools are informational, not professional, legal, financial, or security guarantees. Supplier relationships and availability depend on the specific engagement.
